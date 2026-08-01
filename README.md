@@ -113,7 +113,7 @@ All game assets, names, logos and trademarks belong to their respective owners.
 
 # 📄 License
 
-This project is licensed under the MIT License.
+This project is licensed under the Apache 2.0 License.
 
 ---
 
