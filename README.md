@@ -2,6 +2,8 @@
 
 The ultimate toolkit for **Mini Football** players.
 
+Live on (https://lkatze22.github.io/Mini-Football-Tools).
+
 MFTools is a community-driven website that provides useful tools, player statistics, calculators, guides, and other helpful resources for the mobile game **Mini Football**.
 
 > 🚧 This project is currently under development.
