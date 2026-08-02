@@ -1198,19 +1198,18 @@ function renderTools() {
       </div>
       <div class="grid grid-2">
 
-
-        <div class="tool-panel reveal">
-          <h3>📊 Collection Progress Tracker</h3>
-          <p class="desc">Track how close you are to completing a rarity set.</p>
+      <div class="tool-panel reveal">
+          <h3>🎲 Probability Calculator</h3>
+          <p class="desc">Chance of landing at least one legendary/mythical  across your selected number of packs.</p>
           <div class="field-inline">
-            <div class="field-row"><label for="ct-owned">Players owned</label><input type="number" id="ct-owned" value="none" min="0"></div>
-            <div class="field-row"><label for="ct-total">Total in set</label><input type="number" id="ct-total" value="none" min="1"></div>
+            <div class="field-row"><label for="pc-n">Number of packs</label><input type="number" id="pc-n" value="20" min="1"></div>
+            <div class="field-row"><label for="pc-p">Drop rate (%)</label><input type="number" id="pc-p" value="3" min="0" max="100" step="0.1"></div>
           </div>
-          <div class="stat-bar-row" style="margin-top:6px;">
-            <div class="stat-bar-label"><span>Completion</span><b id="ct-pct">57%</b></div>
-            <div class="stat-bar-track"><div class="stat-bar-fill" id="ct-fill" style="width:57%"></div></div>
+          <div class="result-box">
+            <div><div class="label">Chance of ≥1 Legendary / Mythical</div><div class="value" id="pc-result">45.1%</div></div>
           </div>
         </div>
+        
 
         <div class="tool-panel reveal">
           <h3>⚡ XP Calculator</h3>
@@ -1236,13 +1235,14 @@ function renderTools() {
     fn();
   }
 
-  bindLive(["ct-owned", "ct-total"], () => {
-    const owned = +$("#ct-owned").value || 0,
-      total = +$("#ct-total").value || 1;
-    const pct = Math.min(100, Math.round((owned / total) * 100));
-    $("#ct-pct").textContent = `${pct}%`;
-    $("#ct-fill").style.width = `${pct}%`;
-  });
+  function updateProb() {
+    const n = +$("#pc-n").value || 0,
+      p = (+$("#pc-p").value || 0) / 100;
+    const chance = (1 - Math.pow(1 - p, n)) * 100;
+    $("#pc-result").textContent = `${chance.toFixed(1)}%`;
+  }
+  $$("#pc-n, #pc-p").forEach((i) => i.addEventListener("input", updateProb));
+  updateProb();
 
   bindLive(["xc-current", "xc-needed", "xc-per"], () => {
     const cur = +$("#xc-current").value || 0,
