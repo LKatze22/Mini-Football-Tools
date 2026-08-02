@@ -34,6 +34,7 @@ const RARITIES = [
   { id: "rare", label: "Rare", color: "#3B82F6" },
   { id: "epic", label: "Epic", color: "#A78BFA" },
   { id: "legendary", label: "Legendary", color: "#F5B942" },
+
 ];
 const NATIONS = [
   "Brazil",
@@ -1407,7 +1408,7 @@ function renderNews() {
    ------------------------------------------------------------------------- */
 const aboutCopy = `<p>MFTools is an independent, fan-built companion for Mini Football. It brings together a player database, scouting math and upgrade planning so you can make decisions with real numbers instead of guesswork.</p>
 <h3>What we track</h3><p>Player stats, rarity pools, scout odds and the resource costs behind every upgrade — kept in one consistent place instead of scattered across guides and forums.</p>
-<h3>What's next</h3><p>Account sync, live pricing and a full team builder are on the roadmap as the site grows.</p>`;
+<h3>What's next</h3><p>You're goona see😊 </p>`;
 const privacyCopy = `<p>MFTools does not require an account to use the database, calculators or guides. Favorites and theme preference are stored locally in your browser and are never sent to a server.</p>
 <h3>Analytics</h3><p>If analytics are added in the future, this page will be updated to describe exactly what is collected and why.</p>`;
 const disclaimerCopy = `<p>MFTools is a fan-made resource and is not affiliated with, endorsed by, or connected to the developer or publisher of Mini Football.</p>
