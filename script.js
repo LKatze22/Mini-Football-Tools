@@ -6,179 +6,81 @@
      2. Utilities            (formatting, storage, dom helpers)
      3. Global UI             (nav, theme, search, back-to-top, reveal)
      4. Router
-     5. View renderers        (home, players, player detail, scouts, tools,
-                                rankings, guides, news, static, 404)
-   Data currently lives in-memory so the same render functions can later be
-   pointed at a real API without changing view code (see fetchPlayers etc.)
+     5. View renderers        (home, player detail, scouts, tools,
+                                players (rankings), guides, news, static, 404)
+   Players are entered manually in RAW_PLAYERS below (no random generation).
+   fetchPlayers()/getPlayer() are kept as the data-access layer so the same
+   render functions can later be pointed at a real API without changes.
    ========================================================================== */
 
 /* -------------------------------------------------------------------------
    1. MOCK DATA LAYER
    ------------------------------------------------------------------------- */
-const POSITIONS = [
-  "GK",
-  "CB",
-  "LB",
-  "RB",
-  "CDM",
-  "CM",
-  "CAM",
-  "LM",
-  "RM",
-  "LW",
-  "RW",
-  "ST",
-];
-const RARITIES = [
-  { id: "common", label: "Common", color: "#8B96AB" },
-  { id: "rare", label: "Rare", color: "#3B82F6" },
-  { id: "epic", label: "Epic", color: "#A78BFA" },
-  { id: "legendary", label: "Legendary", color: "#F5B942" },
-
-];
-const NATIONS = [
-  "Brazil",
-  "England",
-  "Spain",
-  "Germany",
-  "France",
-  "Argentina",
-  "Portugal",
-  "Italy",
-  "Netherlands",
-  "Japan",
-  "Nigeria",
-  "Croatia",
-];
-const CLUBS = [
-  "Ironbay FC",
-  "Astra United",
-  "Reddock City",
-  "Meridian SC",
-  "Vantage FC",
-  "Solheim Athletic",
-  "Perth Harbor",
-  "Cobalt Rovers",
-  "Nordwind FC",
-  "Palmetto United",
-];
-const LEAGUES = [
-  "Prime League",
-  "Continental Cup League",
-  "Coastal Division",
-  "Metro Champions League",
-];
-const FIRST = [
-  "Lucas",
-  "Mateo",
-  "Leon",
-  "Kai",
-  "Noah",
-  "Diego",
-  "Marco",
-  "Theo",
-  "Owen",
-  "Rafael",
-  "Ben",
-  "Elias",
-  "Hugo",
-  "Sami",
-  "Jonas",
-  "Dario",
-  "Milo",
-  "Enzo",
-  "Axel",
-  "Vito",
-  "Kian",
-  "Remy",
-  "Toma",
-  "Iker",
-];
-const LAST = [
-  "Ferreira",
-  "Novak",
-  "Hartmann",
-  "Okafor",
-  "Silva",
-  "Moreau",
-  "Baptiste",
-  "Kowalski",
-  "Reyes",
-  "Lindqvist",
-  "Toledo",
-  "Costa",
-  "Brandt",
-  "Suarez",
-  "Vidal",
-  "Amaro",
-  "Pereira",
-  "Duval",
-  "Santini",
-  "Rocha",
+const POSITIONS = ["GK", "DF", "MF", "ST"];
+const RARITIES = [{ id: "mythical", label: "Mythical", color: "#bfebf5" }];
+/* -------------------------------------------------------------------------
+   PLAYER ROSTER — manually entered.
+   To add a player, copy a row and fill in the fields:
+     id       unique string, e.g. "p25"
+     name     display name
+     rating   overall rating, 0-99
+     position one of POSITIONS above
+     rarity   one of: "mythical"
+     nation, club, league   free text
+     pace / shooting / passing / dribbling / defense / physical   0-99
+     avatar   an emoji shown as the player's icon
+   rarityLabel/rarityColor are filled in automatically below from RARITIES,
+   so you never have to type those by hand.
+   ------------------------------------------------------------------------- */
+const RAW_PLAYERS = [
+  {
+    id: "p1",
+    name: "Spider",
+    rating: 97,
+    position: "GK",
+    rarity: "mythical",
+    realName: "Name Unknown", // TODO
+    shooting: 96,
+    passing: 95,
+    sprinting: 99,
+    tackle: 94,
+    stamina: 102,
+    avatar: "🧤",
+  },
+  {
+    id: "p2",
+    name: "Super Stopper",
+    rating: 97,
+    position: "GK",
+    rarity: "mythical",
+    realName: "Name Unknown", // TODO
+    shooting: 95,
+    passing: 96,
+    sprinting: 96,
+    tackle: 94,
+    stamina: 102,
+    avatar: "🧤",
+  },
+  {
+    id: "p3",
+    name: "Saint",
+    rating: 96,
+    position: "GK",
+    rarity: "mythical",
+    realName: "Name Unknown", // TODO
+    shooting: 94,
+    passing: 94,
+    sprinting: 95,
+    tackle: 94,
+    stamina: 101,
+    avatar: "🧤",
+  },
 ];
 
-function seededRandom(seed) {
-  let s = seed % 2147483647;
-  if (s <= 0) s += 2147483646;
-  return function () {
-    s = (s * 16807) % 2147483647;
-    return (s - 1) / 2147483646;
-  };
-}
-const rand = seededRandom(2026);
-function pick(arr) {
-  return arr[Math.floor(rand() * arr.length)];
-}
-function randInt(min, max) {
-  return Math.floor(rand() * (max - min + 1)) + min;
-}
-
-function generatePlayers(count) {
-  const list = [];
-  for (let i = 0; i < count; i++) {
-    const pos = pick(POSITIONS);
-    const isGK = pos === "GK";
-    const rarityRoll = rand();
-    const rarity =
-      rarityRoll > 0.93
-        ? RARITIES[3]
-        : rarityRoll > 0.75
-          ? RARITIES[2]
-          : rarityRoll > 0.45
-            ? RARITIES[1]
-            : RARITIES[0];
-    const base = { common: 58, rare: 68, epic: 78, legendary: 87 }[rarity.id];
-    const rating = Math.min(99, base + randInt(-3, 7));
-    const stat = (lo, hi) =>
-      Math.min(99, Math.max(30, rating + randInt(lo, hi)));
-    const player = {
-      id: "p" + (i + 1),
-      name: `${pick(FIRST)} ${pick(LAST)}`,
-      rating,
-      position: pos,
-      rarity: rarity.id,
-      rarityLabel: rarity.label,
-      rarityColor: rarity.color,
-      nation: pick(NATIONS),
-      club: pick(CLUBS),
-      league: pick(LEAGUES),
-      pace: isGK ? randInt(35, 55) : stat(-8, 8),
-      shooting: isGK ? randInt(15, 30) : stat(-10, 8),
-      passing: isGK ? randInt(30, 50) : stat(-6, 8),
-      dribbling: isGK ? randInt(20, 40) : stat(-8, 8),
-      defense: isGK
-        ? randInt(20, 40)
-        : ["CB", "LB", "RB", "CDM"].includes(pos)
-          ? stat(-4, 10)
-          : stat(-20, 4),
-      physical: stat(-6, 8),
-      avatar: isGK ? "🧤" : pick(["⚽", "🎽", "👟"]),
-    };
-    list.push(player);
-  }
-  return list;
-}
-const PLAYERS = generatePlayers(48);
+const PLAYERS = RAW_PLAYERS.map((p) => {
+  const r = RARITIES.find((x) => x.id === p.rarity);
+  return { ...p, rarityLabel: r.label, rarityColor: r.color };
+});
 function fetchPlayers() {
   return Promise.resolve(PLAYERS);
 } // swap for real API later
@@ -409,7 +311,10 @@ function initNavToggle() {
     btn.setAttribute("aria-expanded", String(open));
   });
   nav.addEventListener("click", (e) => {
-    if (e.target.tagName === "A") nav.classList.remove("open");
+    if (e.target.tagName === "A") {
+      nav.classList.remove("open");
+      btn.setAttribute("aria-expanded", "false");
+    }
   });
 }
 
@@ -528,7 +433,6 @@ function setActiveNav(route) {
    ------------------------------------------------------------------------- */
 const routes = [
   { test: (h) => h === "" || h === "/", render: renderHome, name: "home" },
-  { test: (h) => h === "/players", render: renderPlayers, name: "players" },
   {
     test: (h) => /^\/players\/[\w-]+/.test(h),
     render: renderPlayerDetail,
@@ -536,7 +440,7 @@ const routes = [
   },
   { test: (h) => h === "/scouts", render: renderScouts, name: "scouts" },
   { test: (h) => h === "/tools", render: renderTools, name: "tools" },
-  { test: (h) => h === "/rankings", render: renderRankings, name: "rankings" },
+  { test: (h) => h === "/players", render: renderPlayers, name: "players" },
   { test: (h) => h === "/guides", render: renderGuides, name: "guides" },
   { test: (h) => h === "/news", render: renderNews, name: "news" },
   {
@@ -570,14 +474,10 @@ function router() {
     return;
   }
   setActiveNav(match.name);
-  showSkeleton(match.name);
   requestAnimationFrame(() => {
     match.render(path, new URLSearchParams(query || ""));
     observeReveal(app);
   });
-}
-function showSkeleton(routeName) {
-  if (routeName !== "players") return; // only DB view benefits from skeleton loading
 }
 window.addEventListener("hashchange", router);
 
@@ -628,12 +528,6 @@ function renderHome() {
 
   const cards = [
     {
-      href: "#/players",
-      icon: "🗂️",
-      title: "Player Database",
-      desc: "Search every player with advanced filters by position, rarity, rating and more.",
-    },
-    {
       href: "#/scouts",
       icon: "🔭",
       title: "Scout Tools",
@@ -646,9 +540,9 @@ function renderHome() {
       desc: "Upgrade, pack value, XP and currency calculators to plan every decision.",
     },
     {
-      href: "#/rankings",
+      href: "#/players",
       icon: "🏆",
-      title: "Rankings",
+      title: "Players",
       desc: "Browse the best players by position, pace, defense, passing and more.",
     },
     {
@@ -678,258 +572,9 @@ function renderHome() {
 }
 
 /* -------------------------------------------------------------------------
-   5b. VIEW: PLAYERS (database)
+   5b. Player Database list view removed — Players nav now points to
+   the rankings-based view (see renderPlayers below).
    ------------------------------------------------------------------------- */
-const dbState = {
-  q: "",
-  position: "",
-  rarity: "",
-  nation: "",
-  club: "",
-  league: "",
-  minRating: 40,
-  sort: "rating-desc",
-  page: 1,
-  pageSize: 12,
-};
-
-function renderPlayers() {
-  app.innerHTML = `
-  <section class="section-tight">
-    <div class="wrap">
-      <div class="section-head reveal">
-        <p class="eyebrow">Player Database</p>
-        <h2>Find any player in seconds</h2>
-        <p>Filter by position, rarity, rating and more, then compare or favorite the players that matter to your squad.</p>
-      </div>
-      <div class="db-layout">
-        <aside class="filter-panel reveal" aria-label="Player filters">
-          <h4>Filters</h4>
-          <div class="search-box">
-            <input type="text" id="f-search" placeholder="Search player name…" aria-label="Search players">
-          </div>
-          <div class="filter-group">
-            <legend>Position</legend>
-            <div class="chip-row" id="f-position"></div>
-          </div>
-          <div class="filter-group">
-            <legend>Rarity</legend>
-            <div class="chip-row" id="f-rarity"></div>
-          </div>
-          <div class="filter-group">
-            <legend>Minimum Rating</legend>
-            <div class="range-row">
-              <input type="range" id="f-rating" min="40" max="99" value="${dbState.minRating}">
-              <span class="range-val" id="f-rating-val">${dbState.minRating}</span>
-            </div>
-          </div>
-          <div class="filter-group">
-            <legend>Nationality</legend>
-            <select id="f-nation"><option value="">All Nations</option>${NATIONS.map((n) => `<option value="${n}">${n}</option>`).join("")}</select>
-          </div>
-          <div class="filter-group">
-            <legend>Club</legend>
-            <select id="f-club"><option value="">All Clubs</option>${CLUBS.map((c) => `<option value="${c}">${c}</option>`).join("")}</select>
-          </div>
-          <div class="filter-group">
-            <legend>League</legend>
-            <select id="f-league"><option value="">All Leagues</option>${LEAGUES.map((l) => `<option value="${l}">${l}</option>`).join("")}</select>
-          </div>
-          <button class="btn btn-secondary btn-sm mt-24" id="f-reset" style="width:100%;">Reset Filters</button>
-        </aside>
-
-        <div>
-          <div class="toolbar reveal">
-            <p class="result-count"><b id="result-num">0</b> players found</p>
-            <div class="sort-select">
-              <select id="f-sort">
-                <option value="rating-desc">Rating: High to Low</option>
-                <option value="rating-asc">Rating: Low to High</option>
-                <option value="name-asc">Name: A–Z</option>
-              </select>
-            </div>
-          </div>
-          <div class="player-grid reveal" id="player-grid"></div>
-          <div class="pagination" id="pagination"></div>
-        </div>
-      </div>
-    </div>
-  </section>`;
-
-  // build chip filters
-  const posRow = $("#f-position");
-  ["All", ...POSITIONS].forEach((p) => {
-    const chip = el(
-      `<button class="chip ${p === "All" ? "active" : ""}" data-val="${p === "All" ? "" : p}">${p}</button>`,
-    );
-    chip.addEventListener("click", () => {
-      dbState.position = chip.dataset.val;
-      dbState.page = 1;
-      $$(".chip", posRow).forEach((c) => c.classList.remove("active"));
-      chip.classList.add("active");
-      applyFilters();
-    });
-    posRow.appendChild(chip);
-  });
-  const rarRow = $("#f-rarity");
-  [{ id: "", label: "All" }, ...RARITIES].forEach((r) => {
-    const chip = el(
-      `<button class="chip ${r.id === "" ? "active" : ""}" data-val="${r.id}">${r.label}</button>`,
-    );
-    chip.addEventListener("click", () => {
-      dbState.rarity = chip.dataset.val;
-      dbState.page = 1;
-      $$(".chip", rarRow).forEach((c) => c.classList.remove("active"));
-      chip.classList.add("active");
-      applyFilters();
-    });
-    rarRow.appendChild(chip);
-  });
-
-  $("#f-search").addEventListener("input", (e) => {
-    dbState.q = e.target.value;
-    dbState.page = 1;
-    applyFilters();
-  });
-  $("#f-rating").addEventListener("input", (e) => {
-    dbState.minRating = +e.target.value;
-    $("#f-rating-val").textContent = e.target.value;
-    dbState.page = 1;
-    applyFilters();
-  });
-  $("#f-nation").addEventListener("change", (e) => {
-    dbState.nation = e.target.value;
-    dbState.page = 1;
-    applyFilters();
-  });
-  $("#f-club").addEventListener("change", (e) => {
-    dbState.club = e.target.value;
-    dbState.page = 1;
-    applyFilters();
-  });
-  $("#f-league").addEventListener("change", (e) => {
-    dbState.league = e.target.value;
-    dbState.page = 1;
-    applyFilters();
-  });
-  $("#f-sort").addEventListener("change", (e) => {
-    dbState.sort = e.target.value;
-    applyFilters();
-  });
-  $("#f-reset").addEventListener("click", () => {
-    Object.assign(dbState, {
-      q: "",
-      position: "",
-      rarity: "",
-      nation: "",
-      club: "",
-      league: "",
-      minRating: 40,
-      sort: "rating-desc",
-      page: 1,
-    });
-    renderPlayers();
-  });
-
-  // skeleton then load
-  const grid = $("#player-grid");
-  grid.innerHTML = Array.from({ length: 8 })
-    .map(() => `<div class="skeleton-card"></div>`)
-    .join("");
-  fetchPlayers().then(() => setTimeout(applyFilters, 220));
-}
-
-function applyFilters() {
-  let list = PLAYERS.filter((p) => {
-    if (dbState.q && !p.name.toLowerCase().includes(dbState.q.toLowerCase()))
-      return false;
-    if (dbState.position && p.position !== dbState.position) return false;
-    if (dbState.rarity && p.rarity !== dbState.rarity) return false;
-    if (dbState.nation && p.nation !== dbState.nation) return false;
-    if (dbState.club && p.club !== dbState.club) return false;
-    if (dbState.league && p.league !== dbState.league) return false;
-    if (p.rating < dbState.minRating) return false;
-    return true;
-  });
-  list.sort((a, b) => {
-    if (dbState.sort === "rating-desc") return b.rating - a.rating;
-    if (dbState.sort === "rating-asc") return a.rating - b.rating;
-    if (dbState.sort === "name-asc") return a.name.localeCompare(b.name);
-    return 0;
-  });
-
-  $("#result-num").textContent = list.length;
-  const totalPages = Math.max(1, Math.ceil(list.length / dbState.pageSize));
-  dbState.page = Math.min(dbState.page, totalPages);
-  const pageItems = list.slice(
-    (dbState.page - 1) * dbState.pageSize,
-    dbState.page * dbState.pageSize,
-  );
-
-  const grid = $("#player-grid");
-  grid.innerHTML = "";
-  if (!pageItems.length) {
-    grid.appendChild(
-      el(
-        `<div class="empty-state" style="grid-column:1/-1;"><div class="icon">🔍</div><p>No players match those filters. Try widening your search.</p></div>`,
-      ),
-    );
-  } else {
-    pageItems.forEach((p) => grid.appendChild(playerCard(p)));
-  }
-
-  const pag = $("#pagination");
-  pag.innerHTML = "";
-  if (totalPages > 1) {
-    for (let i = 1; i <= totalPages; i++) {
-      const b = el(
-        `<button class="${i === dbState.page ? "active" : ""}">${i}</button>`,
-      );
-      b.addEventListener("click", () => {
-        dbState.page = i;
-        applyFilters();
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      });
-      pag.appendChild(b);
-    }
-  }
-}
-
-function playerCard(p) {
-  const card = el(`<article class="player-card">
-    <div class="rarity-glow" style="--r-color:${p.rarityColor}"></div>
-    <div class="pc-top">
-      <div class="pc-rating">${p.rating}<span>${p.position}</span></div>
-      <span class="rarity-tag" style="--r-color:${p.rarityColor}">${p.rarityLabel}</span>
-    </div>
-    <a href="#/players/${p.id}" class="pc-avatar">${p.avatar}</a>
-    <a href="#/players/${p.id}"><div class="pc-name">${p.name}</div></a>
-    <div class="pc-meta">${p.club} · ${p.nation}</div>
-    <div class="pc-stats">
-      <div class="pc-stat">PAC <b>${p.pace}</b></div>
-      <div class="pc-stat">SHO <b>${p.shooting}</b></div>
-      <div class="pc-stat">PAS <b>${p.passing}</b></div>
-      <div class="pc-stat">DRI <b>${p.dribbling}</b></div>
-      <div class="pc-stat">DEF <b>${p.defense}</b></div>
-      <div class="pc-stat">PHY <b>${p.physical}</b></div>
-    </div>
-    <div class="pc-actions">
-      <a href="#/players/${p.id}" class="btn btn-secondary btn-sm">View</a>
-      <button class="btn btn-secondary btn-sm cmp-btn">Compare</button>
-      <button class="btn btn-secondary btn-sm fav-btn ${favorites.has(p.id) ? "active" : ""}" aria-label="Favorite ${p.name}">★</button>
-    </div>
-  </article>`);
-  $(".cmp-btn", card).addEventListener("click", () => {
-    toggleCompare(p.id);
-  });
-  const favBtn = $(".fav-btn", card);
-  favBtn.addEventListener("click", () => {
-    toggleFavorite(p.id);
-    favBtn.classList.toggle("active");
-  });
-  return card;
-}
-
 /* -------------------------------------------------------------------------
    5c. VIEW: PLAYER DETAIL
    ------------------------------------------------------------------------- */
@@ -963,9 +608,7 @@ function renderPlayerDetail(path, query) {
           <h1>${p.name}</h1>
           <p class="pos-tag">${p.position} · Overall ${p.rating}</p>
           <div class="tag-row">
-            <span class="info-tag">Nation <b>${p.nation}</b></span>
-            <span class="info-tag">Club <b>${p.club}</b></span>
-            <span class="info-tag">League <b>${p.league}</b></span>
+            <span class="info-tag">Real Name <b>${p.realName}</b></span>
           </div>
           <div style="display:flex;gap:10px;flex-wrap:wrap;">
             <button class="btn btn-primary" id="pd-fav">${favorites.has(p.id) ? "★ Favorited" : "☆ Add to Favorites"}</button>
@@ -978,24 +621,16 @@ function renderPlayerDetail(path, query) {
         <div>
           <p class="panel-title">Stats</p>
           <div class="stat-panel reveal">
-            ${statBar("Pace", p.pace)}
             ${statBar("Shooting", p.shooting)}
             ${statBar("Passing", p.passing)}
-            ${statBar("Dribbling", p.dribbling)}
-            ${statBar("Defense", p.defense)}
-            ${statBar("Physical", p.physical)}
+            ${statBar("Sprinting", p.sprinting)}
+            ${statBar("Tackle", p.tackle)}
+            ${statBar("Stamina", p.stamina)}
           </div>
         </div>
-        <div>
-          <p class="panel-title">${vs ? "Comparison" : "Recommended Upgrades"}</p>
-          <div class="stat-panel reveal">
-            ${vs ? compareBlock(p, vs) : upgradeBlock(p)}
-          </div>
-        </div>
-      </div>
 
       <div style="margin-top:44px;">
-        <p class="panel-title">Similar Players</p>
+        <p class="panel-title">Players with the same position</p>
         <div class="similar-row reveal">
           ${similar
             .map(
@@ -1025,20 +660,20 @@ function renderPlayerDetail(path, query) {
 
 function compareBlock(a, b) {
   const rows = [
-    "pace",
     "shooting",
     "passing",
-    "dribbling",
+    "sprinting",
+    "tackle",
     "defense",
-    "physical",
+    "stamina",
   ];
   const labels = {
-    pace: "Pace",
     shooting: "Shooting",
     passing: "Passing",
-    dribbling: "Dribbling",
+    sprinting: "Sprinting",
+    tackle: "Tackle",
     defense: "Defense",
-    physical: "Physical",
+    stamina: "Stamina",
   };
   return (
     `<div style="display:flex;justify-content:space-between;margin-bottom:18px;font-size:13.5px;color:var(--text-2);">
@@ -1054,23 +689,15 @@ function compareBlock(a, b) {
   );
 }
 function upgradeBlock(p) {
-  const weakest = [
-    "pace",
-    "shooting",
-    "passing",
-    "dribbling",
-    "defense",
-    "physical",
-  ]
+  const weakest = ["shooting", "passing", "sprinting", "tackle", "stamina"]
     .sort((x, y) => p[x] - p[y])
     .slice(0, 3);
   const labels = {
-    pace: "Pace",
     shooting: "Shooting",
     passing: "Passing",
-    dribbling: "Dribbling",
-    defense: "Defense",
-    physical: "Physical",
+    sprinting: "Sprinting",
+    tackle: "Tackle",
+    stamina: "Stamina",
   };
   return `<p style="color:var(--text-2);font-size:13.5px;margin-bottom:16px;">Based on this player's profile, training resources go furthest here:</p>
     <ul style="display:flex;flex-direction:column;gap:12px;">
@@ -1255,23 +882,23 @@ function renderTools() {
 }
 
 /* -------------------------------------------------------------------------
-   5f. VIEW: RANKINGS
+   5f. VIEW: PLAYERS (rankings-based)
    ------------------------------------------------------------------------- */
 const RANK_STATS = [
   { id: "rating", label: "Overall" },
   { id: "position", label: "By Position" },
-  { id: "pace", label: "Speed" },
-  { id: "defense", label: "Defense" },
-  { id: "passing", label: "Passing" },
   { id: "shooting", label: "Shooting" },
-  { id: "physical", label: "Physical" },
+  { id: "passing", label: "Passing" },
+  { id: "sprinting", label: "Sprinting" },
+  { id: "tackle", label: "Tackle" },
+  { id: "stamina", label: "Stamina" },
 ];
-function renderRankings() {
+function renderPlayers() {
   app.innerHTML = `
   <section class="section-tight">
     <div class="wrap">
       <div class="section-head reveal">
-        <p class="eyebrow">Rankings</p>
+        <p class="eyebrow">Players</p>
         <h2>Top players, every category</h2>
         <p>Rankings update as the player pool changes. Switch categories to see who leads.</p>
       </div>
@@ -1331,7 +958,7 @@ function renderRankings() {
         <div class="rank-av">${p.avatar}</div>
         <div>
           <div class="rank-name"><a href="#/players/${p.id}">${p.name}</a></div>
-          <div class="rank-meta">${p.position} · ${p.club}</div>
+          <div class="rank-meta">${p.position} · ${p.realName}</div>
         </div>
         <span class="rarity-tag hide-mobile" style="--r-color:${p.rarityColor}">${p.rarityLabel}</span>
         <div class="rank-value">${p[valKey]}</div>
@@ -1406,7 +1033,7 @@ function renderNews() {
 /* -------------------------------------------------------------------------
    5i. STATIC PAGES + 404
    ------------------------------------------------------------------------- */
-const aboutCopy = `<p>MFTools is an independent, fan-built companion for Mini Football. It brings together a player database, scouting math and upgrade planning so you can make decisions with real numbers instead of guesswork.</p>
+const aboutCopy = `<p>MFTools is an independent, fan-built companion for Mini Football. It brings together player stats, scouting math and upgrade planning so you can make decisions with real numbers instead of guesswork.</p>
 <h3>What we track</h3><p>Player stats, rarity pools, scout odds and the resource costs behind every upgrade — kept in one consistent place instead of scattered across guides and forums.</p>
 <h3>What's next</h3><p>You're goona see😊 </p>`;
 const privacyCopy = `<p>MFTools does not require an account to use the database, calculators or guides. Favorites and theme preference are stored locally in your browser and are never sent to a server.</p>

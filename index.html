@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mini Football Tools (MFTools) — Players, Scouts, Calculators &amp; Rankings</title>
+    <title>Mini Football Tools (MFTools) — Scouts, Calculators &amp; Players</title>
     <meta name="description"
-        content="MFTools is the all-in-one companion for Mini Football: player database, scout tools, upgrade calculators, rankings and guides.">
+        content="MFTools is the all-in-one companion for Mini Football: scout tools, upgrade calculators, player rankings and guides.">
     <meta name="theme-color" content="#0A0E14">
     <link rel="icon"
         href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚽</text></svg>">
@@ -38,16 +38,19 @@
     <header class="site-header" id="site-header">
         <div class="nav-wrap">
             <a href="#/" class="logo" aria-label="MFTools home">
-                <span class="logo-mark"><svg xmlns="http://www.w3.org/2000/svg" height="32px" viewBox="0 -960 960 960" width="32px" fill="#ffffff"><path d="M480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm200-500 54-18 16-54q-32-48-77-82.5T574-786l-54 38v56l160 112Zm-400 0 160-112v-56l-54-38q-54 17-99 51.5T210-652l16 54 54 18Zm-42 308 46-4 30-54-58-174-56-20-40 30q0 65 18 118.5T238-272Zm293 108q25-4 49-12l28-60-26-44H378l-26 44 28 60q24 8 49 12t51 4q26 0 51-4ZM390-360h180l56-160-146-102-144 102 54 160Zm332 88q42-50 60-103.5T800-494l-40-28-56 18-58 174 30 54 46 4Z"/></svg></span>
+                <span class="logo-mark"><svg xmlns="http://www.w3.org/2000/svg" height="32px" viewBox="0 -960 960 960"
+                        width="32px" fill="#ffffff">
+                        <path
+                            d="M480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm200-500 54-18 16-54q-32-48-77-82.5T574-786l-54 38v56l160 112Zm-400 0 160-112v-56l-54-38q-54 17-99 51.5T210-652l16 54 54 18Zm-42 308 46-4 30-54-58-174-56-20-40 30q0 65 18 118.5T238-272Zm293 108q25-4 49-12l28-60-26-44H378l-26 44 28 60q24 8 49 12t51 4q26 0 51-4ZM390-360h180l56-160-146-102-144 102 54 160Zm332 88q42-50 60-103.5T800-494l-40-28-56 18-58 174 30 54 46 4Z" />
+                    </svg></span>
                 <span class="logo-text">MFTools</span>
             </a>
 
             <nav class="main-nav" id="main-nav" aria-label="Primary">
                 <a href="#/" data-route="home">Home</a>
-                <a href="#/players" data-route="players">Players</a>
                 <a href="#/scouts" data-route="scouts">Scouts</a>
                 <a href="#/tools" data-route="tools">Tools</a>
-                <a href="#/rankings" data-route="rankings">Rankings</a>
+                <a href="#/players" data-route="players">Players</a>
                 <a href="#/guides" data-route="guides">Guides</a>
                 <a href="#/news" data-route="news">News</a>
             </nav>
@@ -118,7 +121,11 @@
         <div class="footer-wrap">
             <div class="footer-brand">
                 <a href="#/" class="logo">
-                    <span class="logo-mark"><svg xmlns="http://www.w3.org/2000/svg" height="32px" viewBox="0 -960 960 960" width="32px" fill="#ffffff"><path d="M480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm200-500 54-18 16-54q-32-48-77-82.5T574-786l-54 38v56l160 112Zm-400 0 160-112v-56l-54-38q-54 17-99 51.5T210-652l16 54 54 18Zm-42 308 46-4 30-54-58-174-56-20-40 30q0 65 18 118.5T238-272Zm293 108q25-4 49-12l28-60-26-44H378l-26 44 28 60q24 8 49 12t51 4q26 0 51-4ZM390-360h180l56-160-146-102-144 102 54 160Zm332 88q42-50 60-103.5T800-494l-40-28-56 18-58 174 30 54 46 4Z"/></svg></span>
+                    <span class="logo-mark"><svg xmlns="http://www.w3.org/2000/svg" height="32px"
+                            viewBox="0 -960 960 960" width="32px" fill="#ffffff">
+                            <path
+                                d="M480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm200-500 54-18 16-54q-32-48-77-82.5T574-786l-54 38v56l160 112Zm-400 0 160-112v-56l-54-38q-54 17-99 51.5T210-652l16 54 54 18Zm-42 308 46-4 30-54-58-174-56-20-40 30q0 65 18 118.5T238-272Zm293 108q25-4 49-12l28-60-26-44H378l-26 44 28 60q24 8 49 12t51 4q26 0 51-4ZM390-360h180l56-160-146-102-144 102 54 160Zm332 88q42-50 60-103.5T800-494l-40-28-56 18-58 174 30 54 46 4Z" />
+                        </svg></span>
                     <span class="logo-text">MFTools</span>
                 </a>
                 <p>An independent companion site for Mini Football players. Stats, scouting math and upgrade planning in
@@ -127,10 +134,9 @@
 
             <div class="footer-col">
                 <h4>Explore</h4>
-                <a href="#/players">Player Database</a>
                 <a href="#/scouts">Scout Tools</a>
                 <a href="#/tools">Calculators</a>
-                <a href="#/rankings">Rankings</a>
+                <a href="#/players">Players</a>
             </div>
 
             <div class="footer-col">
