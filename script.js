@@ -44,7 +44,7 @@ const RAW_PLAYERS = [
     passing: 95,
     sprinting: 99,
     tackle: 94,
-    stamina: 102,
+    stamina_reflexes: 102,
     avatar: "🧤",
   },
   {
@@ -58,7 +58,7 @@ const RAW_PLAYERS = [
     passing: 96,
     sprinting: 96,
     tackle: 94,
-    stamina: 102,
+    stamina_reflexes: 102,
     avatar: "🧤",
   },
   {
@@ -72,7 +72,7 @@ const RAW_PLAYERS = [
     passing: 94,
     sprinting: 95,
     tackle: 94,
-    stamina: 101,
+    stamina_reflexes: 101,
     avatar: "🧤",
   },
 ];
@@ -625,7 +625,7 @@ function renderPlayerDetail(path, query) {
             ${statBar("Passing", p.passing)}
             ${statBar("Sprinting", p.sprinting)}
             ${statBar("Tackle", p.tackle)}
-            ${statBar("Stamina", p.stamina)}
+            ${statBar("Stamina/Reflexes", p.stamina_reflexes)}
           </div>
         </div>
 
@@ -665,7 +665,7 @@ function compareBlock(a, b) {
     "sprinting",
     "tackle",
     "defense",
-    "stamina",
+    "stamina_reflexes",
   ];
   const labels = {
     shooting: "Shooting",
@@ -673,7 +673,7 @@ function compareBlock(a, b) {
     sprinting: "Sprinting",
     tackle: "Tackle",
     defense: "Defense",
-    stamina: "Stamina",
+    stamina: "Stamina/Reflexes",
   };
   return (
     `<div style="display:flex;justify-content:space-between;margin-bottom:18px;font-size:13.5px;color:var(--text-2);">
@@ -697,7 +697,7 @@ function upgradeBlock(p) {
     passing: "Passing",
     sprinting: "Sprinting",
     tackle: "Tackle",
-    stamina: "Stamina",
+    stamina: "Stamina/Reflexes",
   };
   return `<p style="color:var(--text-2);font-size:13.5px;margin-bottom:16px;">Based on this player's profile, training resources go furthest here:</p>
     <ul style="display:flex;flex-direction:column;gap:12px;">
@@ -891,7 +891,7 @@ const RANK_STATS = [
   { id: "passing", label: "Passing" },
   { id: "sprinting", label: "Sprinting" },
   { id: "tackle", label: "Tackle" },
-  { id: "stamina", label: "Stamina" },
+  { id: "stamina_reflexes", label: "Stamina/Reflexes" },
 ];
 function renderPlayers() {
   app.innerHTML = `
