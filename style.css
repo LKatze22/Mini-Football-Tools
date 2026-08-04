@@ -14,8 +14,8 @@
   --border-strong: rgba(255, 255, 255, 0.14);
 
   /* -- brand / accents -- */
-  --blue: oklch(55.4% 0.046 257.417);
-  --blue-bright: oklch(45% 0.017 213.2);
+  --blue: oklch(37.2% 0.044 257.287);
+  --blue-bright: oklch(55.4% 0.046 257.417);
   --blue-dim: #1e3a6e;
   --pitch: #22c55e;
   --gold: #f5b942;
