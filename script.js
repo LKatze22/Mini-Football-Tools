@@ -972,8 +972,11 @@ function renderCompareBar() {
       renderCompareBar();
     });
     $("#compare-go", bar).addEventListener("click", () => {
-      if (compareList[0])
+      if (compareList[0]) {
         location.hash = `#/players/${compareList[0]}${compareList[1] ? "?vs=" + compareList[1] : ""}`;
+        compareList = [];
+        renderCompareBar();
+      }
     });
   }
   $("span", bar).textContent = compareList.length
@@ -1340,20 +1343,28 @@ function renderPlayerDetail(path, query) {
           </div>
           <div style="display:flex;gap:10px;flex-wrap:wrap;">
             <button class="btn btn-primary" id="pd-fav">${favorites.has(p.id) ? "★ Favorited" : "☆ Add to Favorites"}</button>
-            <button class="btn btn-secondary" id="pd-compare">Compare with another player</button>
+            ${
+              vs
+                ? `<button class="btn btn-secondary" id="pd-compare-clear">✕ Clear Comparison</button>`
+                : `<button class="btn btn-secondary" id="pd-compare">Compare with another player</button>`
+            }
           </div>
         </div>
       </div>
 
       <div class="detail-grid">
         <div>
-          <p class="panel-title">Stats</p>
+          <p class="panel-title">${vs ? "Comparison" : "Stats"}</p>
           <div class="stat-panel reveal">
-            ${statBar("Shooting", p.shooting)}
+            ${
+              vs
+                ? compareBlock(p, vs)
+                : `${statBar("Shooting", p.shooting)}
             ${statBar("Passing", p.passing)}
             ${statBar("Sprinting", p.sprinting)}
             ${statBar("Tackle", p.tackle)}
-            ${statBar("Stamina/Reflexes", p.stamina_reflexes)}
+            ${statBar("Stamina/Reflexes", p.stamina_reflexes)}`
+            }
           </div>
         </div>
 
@@ -1380,32 +1391,48 @@ function renderPlayerDetail(path, query) {
       ? "★ Favorited"
       : "☆ Add to Favorites";
   });
-  $("#pd-compare").addEventListener("click", () => {
-    toggleCompare(p.id);
-    location.hash = "#/players";
-  });
+  if (vs) {
+    $("#pd-compare-clear").addEventListener("click", () => {
+      compareList = [];
+      renderCompareBar();
+      location.hash = `#/players/${p.id}`;
+    });
+  } else {
+    $("#pd-compare").addEventListener("click", () => {
+      toggleCompare(p.id);
+      location.hash = "#/players";
+    });
+  }
 }
 
 function compareBlock(a, b) {
   const rows = [
+    "rating",
     "shooting",
     "passing",
     "sprinting",
     "tackle",
-    "defense",
     "stamina_reflexes",
   ];
   const labels = {
+    rating: "Overall",
     shooting: "Shooting",
     passing: "Passing",
     sprinting: "Sprinting",
     tackle: "Tackle",
-    defense: "Defense",
-    stamina: "Stamina/Reflexes",
+    stamina_reflexes: "Stamina/Reflexes",
   };
   return (
-    `<div style="display:flex;justify-content:space-between;margin-bottom:18px;font-size:13.5px;color:var(--text-2);">
-      <span>${a.avatar} ${a.name}</span><span>${b.avatar} ${b.name}</span>
+    `<div class="compare-head">
+      <a href="#/players/${a.id}" class="compare-player">
+        <div class="compare-av" style="--r-color:${a.rarityColor}">${a.avatar}</div>
+        <div class="compare-name">${a.name}</div>
+      </a>
+      <span class="compare-vs">VS</span>
+      <a href="#/players/${b.id}" class="compare-player">
+        <div class="compare-av" style="--r-color:${b.rarityColor}">${b.avatar}</div>
+        <div class="compare-name">${b.name}</div>
+      </a>
     </div>` +
     rows
       .map(
@@ -1417,7 +1444,13 @@ function compareBlock(a, b) {
   );
 }
 function upgradeBlock(p) {
-  const weakest = ["shooting", "passing", "sprinting", "tackle", "stamina"]
+  const weakest = [
+    "shooting",
+    "passing",
+    "sprinting",
+    "tackle",
+    "stamina_reflexes",
+  ]
     .sort((x, y) => p[x] - p[y])
     .slice(0, 3);
   const labels = {
