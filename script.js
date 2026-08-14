@@ -865,6 +865,11 @@ const GUIDES = [
     icon: "🌱",
     title: "Beginner Guide: Your First 7 Days",
     desc: "Squad basics, training priorities and the mistakes that cost new managers the most coins.",
+    content: `<p>Your first week decides how smooth the rest of your season goes. Focus on fielding a balanced XI before you chase individual star players — a coherent formation beats a squad of mismatched specialists.</p>
+    <h3>Priorities for day 1-3</h3>
+    <p>Complete every early tutorial reward and claim login bonuses daily — missing even one early login can set your resource curve back noticeably. Spend early coins on training your starting XI rather than saving for a single big pull.</p>
+    <h3>Priorities for day 4-7</h3>
+    <p>Start a savings plan for your first scout pack once your starting lineup covers every position. Avoid upgrading bench players until your first XI is fully trained — spreading resources thin is the most common early mistake.</p>`,
   },
   {
     id: "teams",
@@ -872,6 +877,11 @@ const GUIDES = [
     icon: "🛡️",
     title: "Best Teams to Build Around",
     desc: "Balanced squad archetypes for every budget, from starter XIs to endgame rosters.",
+    content: `<p>Rather than chasing the single highest-rated player available, build around an archetype that matches resources you actually have.</p>
+    <h3>Budget squads</h3>
+    <p>A disciplined back four with two holding midfielders wins more games at low levels than an attack-heavy squad with a leaky defense. Prioritize matching stats over rarity when funds are tight.</p>
+    <h3>Endgame rosters</h3>
+    <p>Once you're pulling legendary players regularly, specialize: pick two or three roles (wing play, direct strikers, possession midfield) and commit your best pulls there instead of spreading upgrades evenly.</p>`,
   },
   {
     id: "formations",
@@ -879,6 +889,13 @@ const GUIDES = [
     icon: "📐",
     title: "Best Formations & When to Use Them",
     desc: "How 4-3-3, 4-2-3-1 and 3-5-2 behave differently and which fits your play style.",
+    content: `<p>Formation choice changes how forgiving your squad is to positioning mistakes, so pick one that matches both your players and your playstyle.</p>
+    <h3>4-3-3</h3>
+    <p>Best when you have two strong wingers and a possession-minded midfield three. It pressures high but can be exposed on the counter if your fullbacks push too far forward.</p>
+    <h3>4-2-3-1</h3>
+    <p>The most balanced all-round option — double pivot midfielders protect the defense while a single striker gets service from an attacking midfielder.</p>
+    <h3>3-5-2</h3>
+    <p>Rewards squads with strong wing-backs and central midfielders, giving you a numbers advantage in midfield at the cost of natural width.</p>`,
   },
   {
     id: "tips",
@@ -886,6 +903,13 @@ const GUIDES = [
     icon: "💡",
     title: "Tips & Tricks Most Players Miss",
     desc: "Small habits — from scout timing to training queues — that compound over a season.",
+    content: `<p>None of these tips are game-changing on their own, but together they add up over a full season.</p>
+    <ul>
+    <li>Keep your training queue full at all times — an idle slot is wasted progress.</li>
+    <li>Time scout pulls around announced rate-up events rather than pulling the moment you have enough currency.</li>
+    <li>Check player stat breakdowns before upgrading — a small stat gap can matter more than overall rating.</li>
+    <li>Rotate your bench into friendlies so upgrade resources aren't wasted only on your starting XI.</li>
+    </ul>`,
   },
   {
     id: "economy",
@@ -893,6 +917,13 @@ const GUIDES = [
     icon: "💰",
     title: "Economy Guide: Coins, Gems & Value",
     desc: "How to plan spending, when to save for packs, and how to avoid wasting resources.",
+    content: `<p>Coins and gems solve different problems, so spending them the same way is the most common resource mistake at the advanced stage.</p>
+    <h3>Coins</h3>
+    <p>Use coins for day-to-day training and squad maintenance — they regenerate steadily, so there's little reason to hoard them for long.</p>
+    <h3>Gems</h3>
+    <p>Gems are scarcer and best saved for scout packs during rate-up events, where the expected value per gem is meaningfully higher than an off-event pull.</p>
+    <h3>Avoiding waste</h3>
+    <p>Before any big purchase, check whether an upgrade calculator shows a better resource-per-stat return elsewhere in your squad — the highest-rated player isn't always the best value target.</p>`,
   },
 ];
 
@@ -905,6 +936,9 @@ const NEWS = [
     title: "Season 9 Kicks Off With New Scout Pool",
     excerpt:
       "A refreshed legendary pool and rebalanced probabilities land alongside the new season.",
+    content: `<p>Season 9 has arrived with a refreshed legendary pool, bringing new faces into rotation and retiring several long-standing pool fixtures.</p>
+    <p>Pull probabilities have been rebalanced across all rarities, with a modest increase to legendary odds during the season's opening two weeks. Existing scout progress carries over, so partially-filled pity counters are not reset.</p>
+    <p>Expect a wave of formation-specific bonus events tied to the new pool over the coming weeks.</p>`,
   },
   {
     id: "n2",
@@ -914,6 +948,8 @@ const NEWS = [
     title: "Summer Cup Rewards Detailed",
     excerpt:
       "Milestone rewards, ranked brackets and the return of the community leaderboard.",
+    content: `<p>The Summer Cup returns with a milestone reward track, handing out coins, training items and a limited-edition kit cosmetic as you climb.</p>
+    <p>Ranked brackets have been split more evenly this year to keep matches competitive at every tier, and the community leaderboard is back, showcasing the top squads by region.</p>`,
   },
   {
     id: "n3",
@@ -923,6 +959,8 @@ const NEWS = [
     title: "Defensive Stats Rebalanced Across Rarities",
     excerpt:
       "Common and rare defenders see a modest bump to keep early squads competitive.",
+    content: `<p>Common and rare defenders have received a modest stat bump, aimed at keeping early-game squads competitive against higher-rarity opposition.</p>
+    <p>Legendary and epic defenders are unaffected by this pass, so the relative gap at the top of the pool remains unchanged — this update is focused entirely on smoothing out the early game.</p>`,
   },
   {
     id: "n4",
@@ -932,6 +970,8 @@ const NEWS = [
     title: "Top Community Formations This Month",
     excerpt:
       "A look at the formations climbing the ranked ladder and why they are working.",
+    content: `<p>4-2-3-1 continues to dominate the ranked ladder this month, largely thanks to how well it protects the defense while still supplying a lone striker.</p>
+    <p>3-5-2 has also seen a rise in popularity among top-bracket players who favor squads built around strong wing-backs, though it remains a distant second in overall pick rate.</p>`,
   },
   {
     id: "n5",
@@ -941,6 +981,8 @@ const NEWS = [
     title: "Training Ground Rework Explained",
     excerpt:
       "Queue slots, XP curves and a new fast-track option for veteran accounts.",
+    content: `<p>The training ground rework adds a third queue slot for accounts past level 30, letting veteran managers train more players in parallel.</p>
+    <p>XP curves have been smoothed out in the mid-levels to reduce the noticeable slowdown players previously hit around level 20-25, and a new fast-track option lets veteran accounts spend gems to skip a portion of remaining training time.</p>`,
   },
   {
     id: "n6",
@@ -950,6 +992,8 @@ const NEWS = [
     title: "How Upgrade Costs Scale Past Level 30",
     excerpt:
       "A breakdown of where resource costs start climbing fastest and how to plan for it.",
+    content: `<p>Upgrade costs stay fairly linear through the early and mid levels, but resource requirements climb sharply after level 30 as each level starts demanding rarer materials rather than just more coins.</p>
+    <p>Planning ahead by stockpiling rare materials before you hit level 30 avoids the common bottleneck of having plenty of coins but not enough of the specific item a late upgrade requires.</p>`,
   },
 ];
 
@@ -1220,7 +1264,17 @@ const routes = [
   { test: (h) => h === "/tools", render: renderTools, name: "tools" },
   { test: (h) => h === "/players", render: renderPlayers, name: "players" },
   { test: (h) => h === "/guides", render: renderGuides, name: "guides" },
+  {
+    test: (h) => /^\/guides\/[\w-]+/.test(h),
+    render: renderGuideDetail,
+    name: "guides",
+  },
   { test: (h) => h === "/news", render: renderNews, name: "news" },
+  {
+    test: (h) => /^\/news\/[\w-]+/.test(h),
+    render: renderNewsDetail,
+    name: "news",
+  },
   {
     test: (h) => h === "/about",
     render: () => renderProse("About MFTools", aboutCopy),
@@ -1795,16 +1849,61 @@ function renderGuides() {
   const grid = $("#guide-grid");
   GUIDES.forEach((g, i) => {
     grid.appendChild(
-      el(`<article class="guide-card reveal" style="transition-delay:${i * 40}ms">
+      el(`<a href="#/guides/${g.id}" class="guide-card reveal" style="transition-delay:${i * 40}ms">
       <div class="guide-thumb">${g.icon}</div>
       <div class="guide-body">
         <div class="guide-level">${g.level}</div>
         <h3>${g.title}</h3>
         <p>${g.desc}</p>
       </div>
-    </article>`),
+    </a>`),
     );
   });
+}
+
+/* -------------------------------------------------------------------------
+   5g-2. VIEW: GUIDE DETAIL
+   ------------------------------------------------------------------------- */
+function renderGuideDetail(path) {
+  const id = path.split("/")[2];
+  const g = GUIDES.find((x) => x.id === id);
+  if (!g) {
+    renderNotFound();
+    return;
+  }
+  const more = GUIDES.filter((x) => x.id !== g.id).slice(0, 3);
+  app.innerHTML = `
+  <section class="section-tight">
+    <div class="wrap">
+      <a href="#/guides" class="btn btn-secondary btn-sm" style="margin-bottom:20px;display:inline-flex">← All Guides</a>
+      <article class="prose reveal">
+        <div class="guide-level">${g.level}</div>
+        <h1>${g.icon} ${g.title}</h1>
+        ${g.content}
+      </article>
+      ${
+        more.length
+          ? `<div class="section-head reveal" style="margin-top:48px"><h2>More guides</h2></div>
+      <div class="grid grid-3" id="guide-more"></div>`
+          : ""
+      }
+    </div>
+  </section>`;
+  if (more.length) {
+    const grid = $("#guide-more");
+    more.forEach((mg, i) => {
+      grid.appendChild(
+        el(`<a href="#/guides/${mg.id}" class="guide-card reveal" style="transition-delay:${i * 40}ms">
+        <div class="guide-thumb">${mg.icon}</div>
+        <div class="guide-body">
+          <div class="guide-level">${mg.level}</div>
+          <h3>${mg.title}</h3>
+          <p>${mg.desc}</p>
+        </div>
+      </a>`),
+      );
+    });
+  }
 }
 
 /* -------------------------------------------------------------------------
@@ -1825,7 +1924,7 @@ function renderNews() {
   const grid = $("#news-grid");
   NEWS.forEach((n, i) => {
     grid.appendChild(
-      el(`<article class="news-card reveal" style="transition-delay:${i * 40}ms">
+      el(`<a href="#/news/${n.id}" class="news-card reveal" style="transition-delay:${i * 40}ms">
       <div class="news-thumb"><span class="news-tag">${n.tag}</span>${n.icon}</div>
       <div class="news-body">
         <div class="news-date">${n.date}</div>
@@ -1833,9 +1932,55 @@ function renderNews() {
         <p>${n.excerpt}</p>
         <span class="btn btn-secondary btn-sm">Read More</span>
       </div>
-    </article>`),
+    </a>`),
     );
   });
+}
+
+/* -------------------------------------------------------------------------
+   5h-2. VIEW: NEWS DETAIL
+   ------------------------------------------------------------------------- */
+function renderNewsDetail(path) {
+  const id = path.split("/")[2];
+  const n = NEWS.find((x) => x.id === id);
+  if (!n) {
+    renderNotFound();
+    return;
+  }
+  const more = NEWS.filter((x) => x.id !== n.id).slice(0, 3);
+  app.innerHTML = `
+  <section class="section-tight">
+    <div class="wrap">
+      <a href="#/news" class="btn btn-secondary btn-sm" style="margin-bottom:20px;display:inline-flex">← All News</a>
+      <article class="prose reveal">
+        <div class="news-date">${n.tag} · ${n.date}</div>
+        <h1>${n.icon} ${n.title}</h1>
+        ${n.content}
+      </article>
+      ${
+        more.length
+          ? `<div class="section-head reveal" style="margin-top:48px"><h2>More news</h2></div>
+      <div class="grid grid-3" id="news-more"></div>`
+          : ""
+      }
+    </div>
+  </section>`;
+  if (more.length) {
+    const grid = $("#news-more");
+    more.forEach((mn, i) => {
+      grid.appendChild(
+        el(`<a href="#/news/${mn.id}" class="news-card reveal" style="transition-delay:${i * 40}ms">
+        <div class="news-thumb"><span class="news-tag">${mn.tag}</span>${mn.icon}</div>
+        <div class="news-body">
+          <div class="news-date">${mn.date}</div>
+          <h3>${mn.title}</h3>
+          <p>${mn.excerpt}</p>
+          <span class="btn btn-secondary btn-sm">Read More</span>
+        </div>
+      </a>`),
+      );
+    });
+  }
 }
 
 /* -------------------------------------------------------------------------

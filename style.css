@@ -1333,6 +1333,9 @@ p {
    Guides
    ========================================================================== */
 .guide-card {
+  display: block;
+  color: inherit;
+  text-decoration: none;
   background: var(--bg-elevated);
   border: 1px solid var(--border);
   border-radius: var(--r-lg);
@@ -1377,6 +1380,9 @@ p {
    News
    ========================================================================== */
 .news-card {
+  display: block;
+  color: inherit;
+  text-decoration: none;
   background: var(--bg-elevated);
   border: 1px solid var(--border);
   border-radius: var(--r-lg);
@@ -1680,6 +1686,15 @@ p {
   color: var(--text-2);
   margin-bottom: 14px;
   font-size: 15px;
+}
+.prose ul {
+  color: var(--text-2);
+  font-size: 15px;
+  margin: 0 0 14px 20px;
+  padding: 0;
+}
+.prose ul li {
+  margin-bottom: 6px;
 }
 
 /* utility */
