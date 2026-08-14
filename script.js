@@ -1041,6 +1041,7 @@ function observeReveal(container) {
     items.forEach((i) => i.classList.add("in"));
     return;
   }
+
   const io = new IntersectionObserver(
     (entries) => {
       entries.forEach((e) => {
@@ -1050,8 +1051,12 @@ function observeReveal(container) {
         }
       });
     },
-    { threshold: 0.12 },
+    {
+      threshold: 0.01,
+      rootMargin: "0px 0px -6% 0px",
+    },
   );
+
   items.forEach((i) => io.observe(i));
 }
 
