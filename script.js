@@ -1852,7 +1852,7 @@ function renderGuides() {
       el(`<a href="#/guides/${g.id}" class="guide-card reveal" style="transition-delay:${i * 40}ms">
       <div class="guide-thumb">${g.icon}</div>
       <div class="guide-body">
-        <div class="guide-level">${g.level}</div>
+        <div class="guide-level" data-level="${g.level}">${g.level}</div>
         <h3>${g.title}</h3>
         <p>${g.desc}</p>
       </div>
@@ -1877,7 +1877,7 @@ function renderGuideDetail(path) {
     <div class="wrap">
       <a href="#/guides" class="btn btn-secondary btn-sm" style="margin-bottom:20px;display:inline-flex">← All Guides</a>
       <article class="prose reveal">
-        <div class="guide-level">${g.level}</div>
+        <div class="guide-level" data-level="${g.level}">${g.level}</div>
         <h1>${g.icon} ${g.title}</h1>
         ${g.content}
       </article>
@@ -1896,7 +1896,7 @@ function renderGuideDetail(path) {
         el(`<a href="#/guides/${mg.id}" class="guide-card reveal" style="transition-delay:${i * 40}ms">
         <div class="guide-thumb">${mg.icon}</div>
         <div class="guide-body">
-          <div class="guide-level">${mg.level}</div>
+          <div class="guide-level" data-level="${mg.level}">${mg.level}</div>
           <h3>${mg.title}</h3>
           <p>${mg.desc}</p>
         </div>
@@ -1925,7 +1925,7 @@ function renderNews() {
   NEWS.forEach((n, i) => {
     grid.appendChild(
       el(`<a href="#/news/${n.id}" class="news-card reveal" style="transition-delay:${i * 40}ms">
-      <div class="news-thumb"><span class="news-tag">${n.tag}</span>${n.icon}</div>
+      <div class="news-thumb"><span class="news-tag" data-tag="${n.tag}">${n.tag}</span>${n.icon}</div>
       <div class="news-body">
         <div class="news-date">${n.date}</div>
         <h3>${n.title}</h3>
@@ -1970,7 +1970,7 @@ function renderNewsDetail(path) {
     more.forEach((mn, i) => {
       grid.appendChild(
         el(`<a href="#/news/${mn.id}" class="news-card reveal" style="transition-delay:${i * 40}ms">
-        <div class="news-thumb"><span class="news-tag">${mn.tag}</span>${mn.icon}</div>
+        <div class="news-thumb"><span class="news-tag" data-tag="${mn.tag}">${mn.tag}</span>${mn.icon}</div>
         <div class="news-body">
           <div class="news-date">${mn.date}</div>
           <h3>${mn.title}</h3>
@@ -1987,8 +1987,23 @@ function renderNewsDetail(path) {
    5i. STATIC PAGES + 404
    ------------------------------------------------------------------------- */
 const aboutCopy = `<p>MFTools is an independent, fan-built companion for Mini Football. It brings together player stats, scouting math and upgrade planning so you can make decisions with real numbers instead of guesswork.</p>
+<h3>Developers & Supporters</h3>
+<div class="supporter-card single-card">
+  <div class="supporter-row">
+    <span class="supporter-role">Developer</span>
+    <a class="supporter-link" href="https://github.com/LKatze22" target="_blank" rel="noopener noreferrer">LKatze22</a>
+  </div>
+  <div class="supporter-row">
+    <span class="supporter-role">Supporters</span>
+    <div class="supporter-stack">
+      <p>AKA_2DA027</p>
+      <p>Baluni</p>
+      <p>S♱S</p>
+    </div>
+  </div>
+</div>
 <h3>What we track</h3><p>Player stats, rarity pools, scout odds and the resource costs behind every upgrade — kept in one consistent place instead of scattered across guides and forums.</p>
-<h3>What's next</h3><p>You're goona see😊 </p>`;
+<h3>What's next</h3><p>You're gonna see 😊</p>`;
 const privacyCopy = `<p>MFTools does not require an account to use the database, calculators or guides. Favorites and theme preference are stored locally in your browser and are never sent to a server.</p>
 <h3>Analytics</h3><p>If analytics are added in the future, this page will be updated to describe exactly what is collected and why.</p>`;
 const disclaimerCopy = `<p>MFTools is a fan-made resource and is not affiliated with, endorsed by, or connected to the developer or publisher of Mini Football.</p>
