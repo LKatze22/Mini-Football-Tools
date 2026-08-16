@@ -39,7 +39,7 @@ const RAW_PLAYERS = [
     rating: 97,
     position: "GK",
     rarity: "mythical",
-    realName: "Name Unknown", // TODO
+    realName: "Yashin",
     shooting: 96,
     passing: 95,
     sprinting: 99,
@@ -53,7 +53,7 @@ const RAW_PLAYERS = [
     rating: 97,
     position: "GK",
     rarity: "mythical",
-    realName: "Name Unknown", // TODO
+    realName: "Buffon",
     shooting: 95,
     passing: 96,
     sprinting: 96,
@@ -67,7 +67,7 @@ const RAW_PLAYERS = [
     rating: 96,
     position: "GK",
     rarity: "mythical",
-    realName: "Name Unknown", // TODO
+    realName: "Casillas",
     shooting: 94,
     passing: 94,
     sprinting: 95,
@@ -81,7 +81,7 @@ const RAW_PLAYERS = [
     rating: 94,
     position: "GK",
     rarity: "mythical",
-    realName: "Name Unknown", // TODO
+    realName: "P. Schmeichel",
     shooting: 97,
     passing: 92,
     sprinting: 90,
@@ -95,7 +95,7 @@ const RAW_PLAYERS = [
     rating: 94,
     position: "GK",
     rarity: "mythical",
-    realName: "Name Unknown", // TODO
+    realName: "Kahn",
     shooting: 91,
     passing: 93,
     sprinting: 93,
@@ -109,7 +109,7 @@ const RAW_PLAYERS = [
     rating: 92,
     position: "GK",
     rarity: "mythical",
-    realName: "Name Unknown", // TODO
+    realName: "Chech",
     shooting: 90,
     passing: 91,
     sprinting: 92,
@@ -123,7 +123,7 @@ const RAW_PLAYERS = [
     rating: 91,
     position: "GK",
     rarity: "mythical",
-    realName: "Name Unknown", // TODO
+    realName: "Higuita",
     shooting: 93,
     passing: 88,
     sprinting: 88,
@@ -137,7 +137,7 @@ const RAW_PLAYERS = [
     rating: 98,
     position: "MF",
     rarity: "mythical",
-    realName: "Name Unknown", // TODO
+    realName: "Zidane",
     shooting: 99,
     passing: 100,
     sprinting: 95,
@@ -151,7 +151,7 @@ const RAW_PLAYERS = [
     rating: 97,
     position: "MF",
     rarity: "mythical",
-    realName: "Name Unknown", // TODO
+    realName: "Iniesta",
     shooting: 97,
     passing: 101,
     sprinting: 96,
@@ -165,7 +165,7 @@ const RAW_PLAYERS = [
     rating: 97,
     position: "MF",
     rarity: "mythical",
-    realName: "Name Unknown", // TODO
+    realName: "Valderrama",
     shooting: 97,
     passing: 100,
     sprinting: 96,
@@ -179,7 +179,7 @@ const RAW_PLAYERS = [
     rating: 97,
     position: "MF",
     rarity: "mythical",
-    realName: "Name Unknown", // TODO
+    realName: "Kroos", // TODO
     shooting: 97,
     passing: 101,
     sprinting: 93,
@@ -193,7 +193,7 @@ const RAW_PLAYERS = [
     rating: 96,
     position: "MF",
     rarity: "mythical",
-    realName: "Name Unknown", // TODO
+    realName: "Kaka",
     shooting: 96,
     passing: 98,
     sprinting: 100,
@@ -207,7 +207,7 @@ const RAW_PLAYERS = [
     rating: 96,
     position: "MF",
     rarity: "mythical",
-    realName: "Name Unknown", // TODO
+    realName: "Seedorf",
     shooting: 100,
     passing: 99,
     sprinting: 92,
@@ -221,7 +221,7 @@ const RAW_PLAYERS = [
     rating: 96,
     position: "MF",
     rarity: "mythical",
-    realName: "Name Unknown", // TODO
+    realName: "B. Charlton",
     shooting: 97,
     passing: 94,
     sprinting: 99,
@@ -235,7 +235,7 @@ const RAW_PLAYERS = [
     rating: 95,
     position: "MF",
     rarity: "mythical",
-    realName: "Name Unknown", // TODO
+    realName: "Pirlo",
     shooting: 97,
     passing: 102,
     sprinting: 86,
@@ -249,7 +249,7 @@ const RAW_PLAYERS = [
     rating: 95,
     position: "MF",
     rarity: "mythical",
-    realName: "Name Unknown", // TODO
+    realName: "Y. Toure",
     shooting: 94,
     passing: 95,
     sprinting: 93,
@@ -263,7 +263,7 @@ const RAW_PLAYERS = [
     rating: 94,
     position: "MF",
     rarity: "mythical",
-    realName: "Name Unknown", // TODO
+    realName: "Essien",
     shooting: 92,
     passing: 92,
     sprinting: 94,
@@ -277,7 +277,7 @@ const RAW_PLAYERS = [
     rating: 94,
     position: "MF",
     rarity: "mythical",
-    realName: "Name Unknown", // TODO
+    realName: "Nakata",
     shooting: 96,
     passing: 94,
     sprinting: 93,
@@ -291,7 +291,7 @@ const RAW_PLAYERS = [
     rating: 94,
     position: "MF",
     rarity: "mythical",
-    realName: "Name Unknown", // TODO
+    realName: "Hamsik",
     shooting: 99,
     passing: 99,
     sprinting: 94,
@@ -305,7 +305,7 @@ const RAW_PLAYERS = [
     rating: 93,
     position: "MF",
     rarity: "mythical",
-    realName: "Name Unknown", // TODO
+    realName: "Lampart",
     shooting: 97,
     passing: 99,
     sprinting: 87,
@@ -319,7 +319,7 @@ const RAW_PLAYERS = [
     rating: 93,
     position: "MF",
     rarity: "mythical",
-    realName: "Name Unknown", // TODO
+    realName: "Beckham",
     shooting: 96,
     passing: 100,
     sprinting: 93,
@@ -333,7 +333,7 @@ const RAW_PLAYERS = [
     rating: 92,
     position: "MF",
     rarity: "mythical",
-    realName: "Name Unknown", // TODO
+    realName: "Ozil",
     shooting: 95,
     passing: 100,
     sprinting: 83,
@@ -347,7 +347,7 @@ const RAW_PLAYERS = [
     rating: 92,
     position: "MF",
     rarity: "mythical",
-    realName: "Name Unknown", // TODO
+    realName: "Totti",
     shooting: 93,
     passing: 92,
     sprinting: 87,
@@ -361,7 +361,7 @@ const RAW_PLAYERS = [
     rating: 92,
     position: "MF",
     rarity: "mythical",
-    realName: "Name Unknown", // TODO
+    realName: "Gerrad",
     shooting: 97,
     passing: 95,
     sprinting: 88,
@@ -867,9 +867,10 @@ const GUIDES = [
     desc: "Squad basics, training priorities and the mistakes that cost new managers the most coins.",
     content: `<p>Your first week decides how smooth the rest of your season goes. Focus on fielding a balanced XI before you chase individual star players — a coherent formation beats a squad of mismatched specialists.</p>
     <h3>Priorities for day 1-3</h3>
-    <p>Complete every early tutorial reward and claim login bonuses daily — missing even one early login can set your resource curve back noticeably. Spend early coins on training your starting XI rather than saving for a single big pull.</p>
+    <p>Claim every early tutorial reward, complete the starter quest and claim the daily login bonuses, missing even one early login can set your resource curve back noticeably. Spend early coins on training your starting XI rather than saving for a single big pull. Play games to earn additional rewards and gain experience in the actual games.</p>
     <h3>Priorities for day 4-7</h3>
-    <p>Start a savings plan for your first scout pack once your starting lineup covers every position. Avoid upgrading bench players until your first XI is fully trained — spreading resources thin is the most common early mistake.</p>`,
+    <p>Start using the scout and check the official Mini-Football Discord for the latest update, community discussions and if you have questions.
+    Join a club you like, in the Offical Mini-Football Discord there is a channel called club recruiting where admins of clubs, that want more members can promote their club.</p>`,
   },
   {
     id: "teams",
@@ -895,7 +896,7 @@ const GUIDES = [
     <h3>4-2-3-1</h3>
     <p>The most balanced all-round option — double pivot midfielders protect the defense while a single striker gets service from an attacking midfielder.</p>
     <h3>3-5-2</h3>
-    <p>Rewards squads with strong wing-backs and central midfielders, giving you a numbers advantage in midfield at the cost of natural width.</p>`,
+    <p>Rewards squads with strong wing-backs and central midfielders, giving you a numbers advantage in midfield at the cost of natural width.After Kick-off from the opponent/ or in general you have a great chance to win the ball back.</p>`,
   },
   {
     id: "tips",
@@ -905,25 +906,31 @@ const GUIDES = [
     desc: "Small habits — from scout timing to training queues — that compound over a season.",
     content: `<p>None of these tips are game-changing on their own, but together they add up over a full season.</p>
     <ul>
-    <li>Keep your training queue full at all times — an idle slot is wasted progress.</li>
-    <li>Time scout pulls around announced rate-up events rather than pulling the moment you have enough currency.</li>
-    <li>Check player stat breakdowns before upgrading — a small stat gap can matter more than overall rating.</li>
-    <li>Rotate your bench into friendlies so upgrade resources aren't wasted only on your starting XI.</li>
+    <li>Use the scout regularly and check the official Mini-Football Discord for the latest updates and community discussions.</li>
+    <li>Use the mythical player list to compare and get info about the stats of different players.</li>
+    <li>Just keep playing Matches, Tournaments and other game modes to earn rewards and gain experience.</li>
+    <li>Have fun and just dont quit when things get tough! The community is here to support you. And you gonna get better with time.</li>
     </ul>`,
   },
   {
-    id: "economy",
-    level: "Advanced",
-    icon: "💰",
-    title: "Economy Guide: Coins, Gems & Value",
-    desc: "How to plan spending, when to save for packs, and how to avoid wasting resources.",
-    content: `<p>Coins and gems solve different problems, so spending them the same way is the most common resource mistake at the advanced stage.</p>
-    <h3>Coins</h3>
-    <p>Use coins for day-to-day training and squad maintenance — they regenerate steadily, so there's little reason to hoard them for long.</p>
-    <h3>Gems</h3>
-    <p>Gems are scarcer and best saved for scout packs during rate-up events, where the expected value per gem is meaningfully higher than an off-event pull.</p>
-    <h3>Avoiding waste</h3>
-    <p>Before any big purchase, check whether an upgrade calculator shows a better resource-per-stat return elsewhere in your squad — the highest-rated player isn't always the best value target.</p>`,
+    id: "FAQ",
+    level: "All Levels",
+    icon: "❓",
+    title: "Frequently Asked Questions",
+    desc: "A few common questions and answers that come up for new and returning managers.",
+    content: `
+    <h3>How good do my team needs to be to compete in Mythical Cup?</h3>
+    <p>
+    <span style="font-weight: bold;">AKA_2DA027 answer:</span><br>Team strength of 700+ can be enough, but to be on the safe side it should be 730+.<br>
+    It depends a lot on how strong certain players are. It is often better to have some stronger ones and some weaker ones than an evenly balanced team.<br><br>
+    But in my experience, more than team strength / OVR, a better benchmark is to see whether someone is ready for Mythical Cup is how well the do in the seasonal cup, and also Legend's Cup.<br>
+    Especially when there are legendary cards on the line.<br><br>
+    The bots in the seasonal cup are already quite strong, and you got to get used to playing and winning when some good cards are on the line.
+    </p>
+    <h3>Is there an active redeem code</h3>
+    <p>Currently there is no active redeem code</p>
+    <h3>Formations</h3>
+    <p>In general the best formations are 4-4-2 and 3-5-2 but it depends on your playstyle and squad composition.</p>`,
   },
 ];
 
