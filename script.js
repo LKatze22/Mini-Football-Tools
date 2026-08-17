@@ -927,6 +927,23 @@ const GUIDES = [
     Especially when there are legendary cards on the line.<br><br>
     The bots in the seasonal cup are already quite strong, and you got to get used to playing and winning when some good cards are on the line.
     </p>
+    <h3>How to get more diamonds?</h3>
+    <p><span style="font-weight: bold;">AKA_2DA027 answer:</span><br>
+    You have to pick up all freebies you get daily:<br>
+    Daily deals (2x or 3x  five gems)<br>
+    Free prizes (30 gems)<br>
+    Ads pack (about 20 gems)<br><br>
+
+    Then be part of a club where you get about 240 gems a week just for the club challenges.<br>
+    Weekly missions also add up, you might need to refresh. Could be 100 - 190 gems a week.<br>
+    Then individual rewards for world, country ranking.<br><br>
+
+    In total you should collect 1000 gems a week for free just from the above.<br> Much more if you place very high in the leaderboards.<br>
+    Game modes such as win streak and Endless Power also give gems that add up.<br>
+    Any other gems through the club's world & league ranking are a bonus.<br><br>
+
+    Golden shots get you 250 gems, so get good at converting them 🙂</p>
+
     <h3>Is there an active redeem code</h3>
     <p>Currently there is no active redeem code</p>
     <h3>Formations</h3>
