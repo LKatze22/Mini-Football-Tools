@@ -983,69 +983,129 @@ const NEWS = [
   {
     id: "n1",
     tag: "Update",
-    date: "Jul 28, 2026",
-    icon: "🆕",
-    title: "Season 9 Kicks Off With New Scout Pool",
+    date: "Aug 20, 2026",
+    icon: "⚽",
+    title: "Version 4.13.0 Preview: Road to Glory",
     excerpt:
-      "A refreshed legendary pool and rebalanced probabilities land alongside the new season.",
-    content: `<p>Season 9 has arrived with a refreshed legendary pool, bringing new faces into rotation and retiring several long-standing pool fixtures.</p>
-    <p>Pull probabilities have been rebalanced across all rarities, with a modest increase to legendary odds during the season's opening two weeks. Existing scout progress carries over, so partially-filled pity counters are not reset.</p>
-    <p>Expect a wave of formation-specific bonus events tied to the new pool over the coming weeks.</p>`,
+      "Faster matchmaking, new confirmation popups and the Road to Glory season arrive in the next update.",
+    content: `<p>Version 4.13.0 is rolling out next week and is expected to be available to everyone on Wednesday.</p>
+    <h3>Bug fixes &amp; improvements</h3>
+    <ul>
+    <li><strong>Faster matchmaking:</strong> Opponents will be ready sooner so you can get on the pitch quicker.</li>
+    <li><strong>Confirmation popups:</strong> New confirmation steps help prevent accidental gem spending, donations and similar actions.</li>
+    <li><strong>Removed beachball from Lucky Shot:</strong> This unintentional side effect has been fixed, making Lucky Shot easier to play.</li>
+    <li><strong>Various small improvements:</strong> Small touchups include removing the flying gems when claiming a Club Challenge reward.</li>
+    </ul>
+    <h3>Road to Glory launches August 20</h3>
+    <p>A fresh new season introduces Tall Titan, Smiley and Godot, adding another strong defender and attacking options to the player pool.</p>
+    <p>Mini Football also turns six this September, with special birthday events expected to start at the very end of August.</p>
+    <p>The new Instant Play Reward track gives you an extra daily reward for winning matches in any mode, in addition to victory packs and other specific rewards.</p>`,
   },
   {
     id: "n2",
-    tag: "Event",
-    date: "Jul 21, 2026",
-    icon: "🏆",
-    title: "Summer Cup Rewards Detailed",
+    tag: "Update",
+    date: "Aug 10, 2026",
+    icon: "🎲",
+    title: "Chaos Rules Starts August 10",
     excerpt:
-      "Milestone rewards, ranked brackets and the return of the community leaderboard.",
-    content: `<p>The Summer Cup returns with a milestone reward track, handing out coins, training items and a limited-edition kit cosmetic as you climb.</p>
-    <p>Ranked brackets have been split more evenly this year to keep matches competitive at every tier, and the community leaderboard is back, showcasing the top squads by region.</p>`,
+      "A new game mode brings 14 random match modifiers, including Fumble Keeper, Golden Goal, Pressure Timer and No Goalie.",
+    content: `<p><strong>New game mode available next week for anyone on v4.12.0.</strong></p>
+    <p>Adapt to unpredictable match conditions using fresh new strategies. At the start of every Chaos Rules match, each team gets hit with a unique rule randomly selected from a pool of 14 total modifiers, including <em>Fumble Keeper</em>, <em>Golden Goal</em>, <em>Pressure Timer</em> and <em>No Goalie</em>, just to name a few.</p>
+    <h3>We want your feedback!</h3>
+    <p>We need your help tuning the rules and effects. Jump in, play a few matches, and <a href="https://discord.com/channels/1298199867432374295/1536282146963062835" target="_blank" rel="noopener noreferrer">head over to the feedback channels</a> to let us know:</p>
+    <ul>
+    <li>What rules or match-ups did you like?</li>
+    <li>What needs a tweak or rebalance? This can be a rule itself, duration, effects or something else.</li>
+    <li>What brand-new rules should we add next?</li>
+    </ul>
+    <p>Thanks in advance! See you on the pitch ⚽</p>`,
   },
   {
     id: "n3",
-    tag: "Balance",
-    date: "Jul 14, 2026",
-    icon: "⚖️",
-    title: "Defensive Stats Rebalanced Across Rarities",
+    tag: "Event",
+    date: "Aug 20, 2026",
+    icon: "🏆",
+    title: "Champion Event Shop Is Live!",
     excerpt:
-      "Common and rare defenders see a modest bump to keep early squads competitive.",
-    content: `<p>Common and rare defenders have received a modest stat bump, aimed at keeping early-game squads competitive against higher-rarity opposition.</p>
-    <p>Legendary and epic defenders are unaffected by this pass, so the relative gap at the top of the pool remains unchanged — this update is focused entirely on smoothing out the early game.</p>`,
+      "The Champion Event Shop is live with exclusive Heroic rewards, Legendary kits, a new Prestige Pack and two new collection sets.",
+    content: `<p>The new event shop is live! Alongside the exclusive Heroic rewards and Legendary kits, an all-new Prestige Pack is now available.</p>
+    <p>Earn event currency by completing missions, playing Draft Tournament mode and claiming rewards from the shop, or receive it with specific purchases.</p>
+    <h3>What's inside the Prestige Pack?</h3>
+    <p>Grab your chance at rare Mythical, Hero, TCP and RTTF characters. If you're looking to upgrade your Class A squad or finally make the jump past Legendaries, this is the pack to pull.</p>
+    <h3>New Set Collections</h3>
+    <p>Two brand-new sets are now available. If you already hold the required cards, head over to claim your free rewards and give your team an extra boost.</p>`,
   },
   {
     id: "n4",
-    tag: "Community",
-    date: "Jul 06, 2026",
-    icon: "🗣️",
-    title: "Top Community Formations This Month",
+    tag: "Update",
+    date: "Aug 24, 2026",
+    icon: "🏆",
+    title: "v4.12.0 Preview: Champions Event Shop & Draft Tournament",
     excerpt:
-      "A look at the formations climbing the ranked ladder and why they are working.",
-    content: `<p>4-2-3-1 continues to dominate the ranked ladder this month, largely thanks to how well it protects the defense while still supplying a lone striker.</p>
-    <p>3-5-2 has also seen a rise in popularity among top-bracket players who favor squads built around strong wing-backs, though it remains a distant second in overall pick rate.</p>`,
+      "New ultra-rare rewards, improved Draft Tournament rewards, collection sets and v4.12.0 improvements arrive next week.",
+    content: `<p><strong>Coming next Monday.</strong> No update is required if you're already on v4.11.0.</p>
+    <h3>Champions Event Shop</h3>
+    <p>New and returning ultra-rare rewards are coming to the shop, including a very special pack you won't want to miss.</p>
+    <h3>Draft Tournament</h3>
+    <p>The Draft Tournament has been tweaked based on your feedback, with higher event currency rewards expected this time around. <a href="https://discord.com/channels/1298199867432374295/1527281520879075369" target="_blank" rel="noopener noreferrer">Read more about it here</a>.</p>
+    <h3>New Collection Sets</h3>
+    <p>Two brand-new sets go live Monday, specially curated for legacy collectors.</p>
+    <h3>v4.12.0 update preview</h3>
+    <p>Version 4.12.0 is rolling out next week with the following bug fixes and improvements:</p>
+    <ul>
+    <li><strong>Google Login:</strong> Canceling or aborting won't get you stuck in the app anymore.</li>
+    <li><strong>Profile Badge:</strong> Fixed confusing or missing badge icons when unlocking new avatars.</li>
+    <li><strong>Season Pass:</strong> Player cards now update properly when claimed from the track.</li>
+    <li><strong>Tablet Support:</strong> Polished the Tier Up screen layout for tablet devices.</li>
+    <li><strong>Lucky Shot:</strong> Removed the Beach Ball from accidentally showing up there.</li>
+    <li><strong>Stability:</strong> Multiple under-the-hood fixes help prevent most occurring crashes.</li>
+    </ul>
+    <h3>New features:</h3>
+    <ul>
+    <li>A new game mode is going live August 10th, with a full reveal coming next week.</li>
+    <li>A promo-exclusive ball design is coming to the game by popular request.</li>
+    </ul>`,
   },
   {
     id: "n5",
     tag: "Update",
-    date: "Jun 29, 2026",
-    icon: "🆕",
-    title: "Training Ground Rework Explained",
+    date: "Aug 3, 2026",
+    icon: "🤝",
+    title: "Rebalancing Club Points for Card Donations",
     excerpt:
-      "Queue slots, XP curves and a new fast-track option for veteran accounts.",
-    content: `<p>The training ground rework adds a third queue slot for accounts past level 30, letting veteran managers train more players in parallel.</p>
-    <p>XP curves have been smoothed out in the mid-levels to reduce the noticeable slowdown players previously hit around level 20-25, and a new fast-track option lets veteran accounts spend gems to skip a portion of remaining training time.</p>`,
+      "Club donation points are being adjusted according to the average max ratings of each card rarity.",
+    content: `<p>We've seen ongoing community debates about how card donations weigh against match performance in club points.</p>
+    <p>To get a clearer picture, we reviewed data across all clubs. Even in top clubs, match results account for more than half of all points, but donations can make a noticeable impact. To keep donations rewarding for the overall player base, we decided not to touch limits or cooldowns. We're tweaking the point values instead, aligning points per card according to their respective average max ratings relative to other rarities.</p>
+    <p>Effective <code>&lt;t:1785740400:F&gt;</code>, we're adjusting club points earned in the existing donation system as follows:</p>
+    <div class="donation-table-wrap">
+      <table>
+        <thead>
+          <tr><th>Rarity</th><th>Before</th><th>After</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Common</td><td>1</td><td>1</td></tr>
+          <tr><td>Rare</td><td>2</td><td>2</td></tr>
+          <tr><td>Epic</td><td>5</td><td>4</td></tr>
+          <tr><td>Legendary</td><td>15</td><td>7</td></tr>
+          <tr><td>Ultra Legendary</td><td>15</td><td>7</td></tr>
+          <tr><td>RTTF and TCP</td><td>25</td><td>7</td></tr>
+          <tr><td>Hero</td><td>20</td><td>10</td></tr>
+          <tr><td>Mythical</td><td>20</td><td>10</td></tr>
+        </tbody>
+      </table>
+    </div>`,
   },
   {
     id: "n6",
-    tag: "Guide",
-    date: "Jun 22, 2026",
-    icon: "📘",
-    title: "How Upgrade Costs Scale Past Level 30",
+    tag: "Update",
+    date: "Jul 23, 2026",
+    icon: "📢",
+    title: "Update v4.11.0 Is Rolling Out Now",
     excerpt:
-      "A breakdown of where resource costs start climbing fastest and how to plan for it.",
-    content: `<p>Upgrade costs stay fairly linear through the early and mid levels, but resource requirements climb sharply after level 30 as each level starts demanding rarer materials rather than just more coins.</p>
-    <p>Planning ahead by stockpiling rare materials before you hit level 30 avoids the common bottleneck of having plenty of coins but not enough of the specific item a late upgrade requires.</p>`,
+      "Version 4.11.0 is rolling out over the next couple of days alongside the Lovers of the Game season.",
+    content: `<p><strong>Mini Football v4.11.0</strong> will become available to everyone over the next couple of days.</p>
+    <p>Besides the highlights mentioned earlier, it's time to kick off the <strong>Lovers of the Game</strong> season on July 23rd!</p>
+    <p>Introducing The Bison, Dreads and Powergol so you can dominate every position on the field. Enjoy!</p>`,
   },
 ];
 
