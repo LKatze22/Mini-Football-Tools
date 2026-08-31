@@ -1301,6 +1301,42 @@ p {
   color: #fff;
 }
 
+.combo-panel {
+  border: 1px solid var(--border-strong);
+  border-radius: var(--r-lg);
+  background: var(--bg-surface);
+  padding: 16px 18px;
+  margin-bottom: 20px;
+}
+.combo-hint {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-2);
+}
+.combo-hint b {
+  color: var(--text-1);
+}
+.combo-weights {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 14px;
+}
+.combo-weight-row {
+  gap: 12px;
+}
+.combo-weight-label {
+  font-size: 13px;
+  color: var(--text-2);
+  min-width: 150px;
+}
+@media (max-width: 600px) {
+  .combo-weight-label {
+    min-width: 108px;
+    font-size: 12px;
+  }
+}
+
 .rank-list {
   border: 1px solid var(--border);
   border-radius: var(--r-lg);

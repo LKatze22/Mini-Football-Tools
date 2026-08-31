@@ -1866,6 +1866,17 @@ const RANK_STATS = [
   { id: "sprinting", label: "Sprinting" },
   { id: "tackle", label: "Tackle" },
   { id: "stamina_reflexes", label: "Stamina/Reflexes" },
+  { id: "custom", label: "Combine Stats" },
+];
+/* Stats that can be mixed together in the "Combine Stats" tab, e.g. Tackle
+   (Defense) + Sprinting (Speed) to find the best all-round defenders. */
+const COMBINABLE_STATS = [
+  { id: "rating", label: "Overall" },
+  { id: "shooting", label: "Shooting" },
+  { id: "passing", label: "Passing" },
+  { id: "sprinting", label: "Sprinting (Speed)" },
+  { id: "tackle", label: "Tackle (Defense)" },
+  { id: "stamina_reflexes", label: "Stamina/Reflexes" },
 ];
 function renderPlayers() {
   app.innerHTML = `
@@ -1878,6 +1889,13 @@ function renderPlayers() {
       </div>
       <div class="tab-row reveal" id="rank-tabs"></div>
       <div class="tab-row reveal" id="rank-pos-tabs" style="display:none;"></div>
+      <div class="combo-panel reveal" id="rank-combo-panel" style="display:none;">
+        <p class="combo-hint">Pick two or more stats to build your own ranking — for example combine
+          <b>Tackle</b> (Defense) and <b>Sprinting</b> (Speed) to find the best all-round defenders.</p>
+          <br>
+        <div class="chip-row" id="combo-chip-row"></div>
+        <div class="combo-weights" id="combo-weights"></div>
+      </div>
       <div class="rank-list reveal" id="rank-list"></div>
     </div>
   </section>`;
@@ -1891,6 +1909,12 @@ function renderPlayers() {
       $$(".tab-btn", tabRow).forEach((b) => b.classList.remove("active"));
       btn.classList.add("active");
       $("#rank-pos-tabs").style.display = s.id === "position" ? "flex" : "none";
+      $("#rank-combo-panel").style.display =
+        s.id === "custom" ? "block" : "none";
+      if (s.id === "custom") {
+        renderComboChips();
+        renderComboWeights();
+      }
       renderRankList(
         s.id,
         s.id === "position" ? posState || POSITIONS[0] : null,
@@ -1898,6 +1922,62 @@ function renderPlayers() {
     });
     tabRow.appendChild(btn);
   });
+
+  // "Combine Stats" tab state: which stats are mixed in, and how heavily
+  // each one is weighted (1x-3x) relative to the others. Pre-populated with
+  // Tackle + Sprinting (Defense + Speed) as a ready-made example.
+  const comboState = new Map([
+    ["tackle", 1],
+    ["sprinting", 1],
+  ]);
+
+  function renderComboChips() {
+    const row = $("#combo-chip-row");
+    row.innerHTML = "";
+    COMBINABLE_STATS.forEach((s) => {
+      const chip = el(
+        `<button type="button" class="chip ${comboState.has(s.id) ? "active" : ""}" data-id="${s.id}">${s.label}</button>`,
+      );
+      chip.addEventListener("click", () => {
+        if (comboState.has(s.id)) comboState.delete(s.id);
+        else comboState.set(s.id, 1);
+        renderComboChips();
+        renderComboWeights();
+        renderRankList("custom", null);
+      });
+      row.appendChild(chip);
+    });
+  }
+
+  function renderComboWeights() {
+    const wrap = $("#combo-weights");
+    const ids = [...comboState.keys()];
+    if (!ids.length) {
+      wrap.innerHTML = `<p class="combo-hint">Select at least one stat above to build a combined ranking.</p>`;
+      return;
+    }
+    wrap.innerHTML = ids
+      .map((id) => {
+        const label = COMBINABLE_STATS.find((s) => s.id === id).label;
+        const w = comboState.get(id);
+        return `<div class="range-row combo-weight-row" data-weight-id="${id}">
+          <span class="combo-weight-label">${label}</span>
+          <input type="range" min="1" max="3" step="1" value="${w}">
+          <span class="range-val">${w}×</span>
+        </div>`;
+      })
+      .join("");
+    $$("[data-weight-id]", wrap).forEach((row) => {
+      const id = row.dataset.weightId;
+      const input = row.querySelector("input[type=range]");
+      const val = row.querySelector(".range-val");
+      input.addEventListener("input", () => {
+        comboState.set(id, Number(input.value));
+        val.textContent = `${input.value}×`;
+        renderRankList("custom", null);
+      });
+    });
+  }
 
   let posState = POSITIONS[0];
   const posRow = $("#rank-pos-tabs");
@@ -1916,28 +1996,55 @@ function renderPlayers() {
 
   function renderRankList(statId, posFilter) {
     let list = [...PLAYERS];
-    if (statId === "position")
+    const container = $("#rank-list");
+    let comboIds = [];
+
+    if (statId === "position") {
       list = list
         .filter((p) => p.position === posFilter)
         .sort((a, b) => b.rating - a.rating);
-    else list.sort((a, b) => b[statId] - a[statId]);
+    } else if (statId === "custom") {
+      comboIds = [...comboState.keys()];
+      if (!comboIds.length) {
+        container.innerHTML = `<div class="search-empty">Select at least one stat above to build a combined ranking.</div>`;
+        return;
+      }
+      const totalWeight = comboIds.reduce(
+        (sum, id) => sum + comboState.get(id),
+        0,
+      );
+      list.forEach((p) => {
+        p._comboScore =
+          comboIds.reduce((sum, id) => sum + p[id] * comboState.get(id), 0) /
+          totalWeight;
+      });
+      list.sort((a, b) => b._comboScore - a._comboScore);
+    } else {
+      list.sort((a, b) => b[statId] - a[statId]);
+    }
     list = list.slice(0, 100);
     const valKey = statId === "position" ? "rating" : statId;
-    const container = $("#rank-list");
+
     container.innerHTML = list
-      .map(
-        (p, i) => `
+      .map((p, i) => {
+        const value =
+          statId === "custom" ? p._comboScore.toFixed(1) : p[valKey];
+        const meta =
+          statId === "custom"
+            ? `${p.position} · ${comboIds.map((id) => `${COMBINABLE_STATS.find((s) => s.id === id).label.split(" (")[0]} ${p[id]}`).join(" · ")}`
+            : `${p.position} · ${p.realName}`;
+        return `
       <div class="rank-row">
         <div class="rank-num">${i + 1}</div>
         <div class="rank-av">${p.avatar}</div>
         <div>
           <div class="rank-name"><a href="#/players/${p.id}">${p.name}</a></div>
-          <div class="rank-meta">${p.position} · ${p.realName}</div>
+          <div class="rank-meta">${meta}</div>
         </div>
         <span class="rarity-tag hide-mobile" style="--r-color:${p.rarityColor}">${p.rarityLabel}</span>
-        <div class="rank-value">${p[valKey]}</div>
-      </div>`,
-      )
+        <div class="rank-value">${value}</div>
+      </div>`;
+      })
       .join("");
   }
   renderRankList("rating", null);
