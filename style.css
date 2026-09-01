@@ -16,6 +16,7 @@
   /* -- brand / accents -- */
   --blue: oklch(37.2% 0.044 257.287);
   --blue-bright: oklch(55.4% 0.046 257.417);
+  --blue-light: #6fc3ff;
   --blue-dim: #1e3a6e;
   --pitch: #22c55e;
   --gold: #f5b942;
@@ -65,6 +66,7 @@
   --text-2: #4b5568;
   --text-3: #818999;
   --blue-dim: #dce9ff;
+  --blue-light: #2f9beb;
   --shadow-2: 0 12px 32px -14px rgba(15, 23, 42, 0.18);
   --header-bg-1: rgba(255, 255, 255, 0.86);
   --header-bg-2: rgba(255, 255, 255, 0.66);
@@ -186,6 +188,162 @@ p {
   outline: 2px solid var(--blue-bright);
   outline-offset: 2px;
   border-radius: 4px;
+}
+
+/* ==========================================================================
+   Loading screen — a player scoring into a complete goal, monochrome,
+   flips white-on-black / black-on-white with the site theme.
+   ========================================================================== */
+.loading-screen {
+  --mono-bg: #161d2b;
+  --mono-fg: #fff;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  background: var(--mono-bg);
+  color: var(--mono-fg);
+  transition:
+    opacity 0.5s var(--ease),
+    visibility 0.5s var(--ease);
+}
+[data-theme="light"] .loading-screen {
+  --mono-bg: #fff;
+  --mono-fg: #161d2b;
+}
+.loading-screen.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+.loading-screen .goal-anim {
+  width: min(78vw, 340px);
+  aspect-ratio: 300 / 180;
+}
+.goal-anim-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  color: var(--mono-fg);
+}
+.loading-text {
+  font-family: var(--font-display);
+  font-size: 22px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--mono-fg);
+  opacity: 0.85;
+}
+.goal-anim .net {
+  animation: goalNetReact 2.2s ease-in-out infinite;
+}
+.goal-anim .leg-kick {
+  transform-origin: 55px 154px;
+  animation: goalLegKick 2.2s ease-in-out infinite;
+}
+.goal-anim .ball-rig {
+  animation: goalBallFly 2.2s ease-in-out infinite;
+}
+.goal-anim .motion-lines {
+  opacity: 0;
+  animation: goalMotionFade 2.2s ease-in-out infinite;
+}
+.goal-anim .ball-glow {
+  opacity: 0;
+  animation: goalGlowPulse 2.2s ease-in-out infinite;
+}
+@keyframes goalNetReact {
+  0%,
+  84% {
+    opacity: 0.4;
+  }
+  92% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0.4;
+  }
+}
+@keyframes goalLegKick {
+  0%,
+  6% {
+    transform: rotate(-30deg);
+  }
+  16% {
+    transform: rotate(24deg);
+  }
+  26%,
+  100% {
+    transform: rotate(6deg);
+  }
+}
+@keyframes goalBallFly {
+  0%,
+  6% {
+    transform: translate(68px, 165px) scale(1);
+  }
+  16% {
+    transform: translate(80px, 154px) scale(1.15);
+  }
+  30% {
+    transform: translate(122px, 112px) scale(1.7);
+  }
+  44% {
+    transform: translate(160px, 76px) scale(2.4);
+  }
+  52% {
+    transform: translate(172px, 66px) scale(2.5);
+  }
+  64% {
+    transform: translate(188px, 52px) scale(1.8);
+  }
+  78% {
+    transform: translate(200px, 40px) scale(1.15);
+  }
+  90%,
+  100% {
+    transform: translate(206px, 34px) scale(1);
+  }
+}
+@keyframes goalMotionFade {
+  0%,
+  14% {
+    opacity: 0;
+  }
+  22%,
+  80% {
+    opacity: 0.7;
+  }
+  92%,
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes goalGlowPulse {
+  0%,
+  38% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.55;
+  }
+  64%,
+  100% {
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .goal-anim .net,
+  .goal-anim .leg-kick,
+  .goal-anim .ball-rig,
+  .goal-anim .motion-lines,
+  .goal-anim .ball-glow {
+    animation: none;
+  }
 }
 
 /* ==========================================================================
@@ -743,12 +901,12 @@ p {
 }
 .range-row input[type="range"] {
   flex: 1;
-  accent-color: var(--blue);
+  accent-color: var(--blue-light);
 }
 .range-val {
   font-family: var(--font-mono);
   font-size: 13px;
-  color: var(--blue-bright);
+  color: var(--blue-light);
   width: 34px;
   text-align: right;
 }

@@ -1892,7 +1892,6 @@ function renderPlayers() {
       <div class="combo-panel reveal" id="rank-combo-panel" style="display:none;">
         <p class="combo-hint">Pick two or more stats to build your own ranking — for example combine
           <b>Tackle</b> (Defense) and <b>Sprinting</b> (Speed) to find the best all-round defenders.</p>
-          <br>
         <div class="chip-row" id="combo-chip-row"></div>
         <div class="combo-weights" id="combo-weights"></div>
       </div>
@@ -2251,4 +2250,18 @@ document.addEventListener("DOMContentLoaded", () => {
   initSearch();
   renderCompareBar();
   router();
+  hideLoadingScreen();
 });
+
+function hideLoadingScreen() {
+  const screen = $("#loading-screen");
+  if (!screen) return;
+  // Keep it up for at least one pass of the animation so it doesn't just flash.
+  const MIN_VISIBLE_MS = 1400;
+  window.setTimeout(() => {
+    screen.classList.add("is-hidden");
+    screen.addEventListener("transitionend", () => screen.remove(), {
+      once: true,
+    });
+  }, MIN_VISIBLE_MS);
+}

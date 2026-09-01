@@ -20,6 +20,44 @@
 
 <body>
 
+    <!-- ============ LOADING SCREEN ============ -->
+    <div class="loading-screen" id="loading-screen" role="status" aria-label="Loading MFTools">
+        <div class="goal-anim" aria-hidden="true">
+            <svg class="goal-anim-svg" viewBox="0 0 300 180" xmlns="http://www.w3.org/2000/svg">
+                <g class="goal" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path d="M70 20 V112 M70 20 H230 M230 20 V112" />
+                    <g class="net" stroke-width="1">
+                        <path
+                            d="M90 20 V112 M110 20 V112 M130 20 V112 M150 20 V112 M170 20 V112 M190 20 V112 M210 20 V112" />
+                        <path d="M70 36 H230 M70 52 H230 M70 68 H230 M70 84 H230 M70 100 H230" />
+                    </g>
+                </g>
+                <g class="player" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <circle cx="55" cy="132" r="6" fill="currentColor" stroke="none" />
+                    <path d="M55 138 V154" />
+                    <path d="M55 141 L43 150" />
+                    <path d="M55 154 L46 172" />
+                    <g class="leg-kick">
+                        <path d="M55 154 L68 165" />
+                    </g>
+                </g>
+                <g class="ball-rig">
+                    <circle class="ball-glow" cx="0" cy="0" r="11" fill="none" stroke="currentColor"
+                        stroke-width="1.4" />
+                    <g class="motion-lines" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                        <line x1="-18" y1="1" x2="-6" y2="1" />
+                        <line x1="-15" y1="7" x2="-5" y2="6" />
+                        <line x1="-14" y1="-5" x2="-5" y2="-4" />
+                    </g>
+                    <circle class="ball" cx="0" cy="0" r="6" fill="currentColor" stroke="none" />
+                </g>
+            </svg>
+        </div>
+        <p class="loading-text">Loading MFTools…</p>
+    </div>
+
     <!-- ============ SKIP LINK ============ -->
     <a class="skip-link" href="#main">Skip to content</a>
 
