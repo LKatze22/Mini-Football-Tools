@@ -1434,7 +1434,7 @@ function renderHome() {
     <div class="hero-field"></div>
     <div class="wrap">
       <div class="hero-inner">
-        <p class="eyebrow">Mini Football Companion</p>
+        <p class="eyebrow">Mini Football Tools - MFTools</p>
         <h1>The Ultimate <em>Mini Football</em> Companion</h1>
         <p class="hero-sub">Find player stats, compare players, discover the best scouts, calculate upgrades and improve your team — all in one place.</p>
         <div class="hero-actions">
