@@ -1726,7 +1726,7 @@ function renderScouts() {
           <ul style="display:flex;flex-direction:column;gap:14px;font-size:13.5px;color:var(--text-2);">
             <li><b style="color:var(--text-1);">Stack your queue.</b> Always keep a scout running — idle slots are wasted time, not saved resources.</li>
             <li><b style="color:var(--text-1);">Long scouts skew rarer.</b> Longer durations generally shift odds toward higher rarity pools.</li>
-            <li><b style="color:var(--text-1);">Buying Epic Cards in the shop</b>You can buy epic cards with coins in the shop and trade 40 epic into two legendary cards. </li>
+            <li><b style="color:var(--text-1);">Buying Epic Cards in the shop. </b>You can buy epic cards with coins in the shop and trade 40 epic into two legendary cards. </li>
             <li><b style="color:var(--text-1);">Budget in runs, not gems.</b> Decide how many scouts you can afford this week before you start, not after.</li>
           </ul>
         </div>
