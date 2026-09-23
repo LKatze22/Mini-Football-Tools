@@ -888,7 +888,7 @@ const RAW_PLAYERS = [
     avatar: "⚽",
   },
   {
-    id: "p60",
+    id: "p62",
     name: "Ferminator",
     rating: 96,
     position: "DF",
