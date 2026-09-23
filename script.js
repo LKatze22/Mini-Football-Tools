@@ -873,6 +873,34 @@ const RAW_PLAYERS = [
     stamina_reflexes: 96,
     avatar: "⚡",
   },
+  {
+    id: "p61",
+    name: "Blonde Fury",
+    rating: 97,
+    position: "MF",
+    rarity: "mythical",
+    realName: "Nedved",
+    shooting: 98,
+    passing: 99,
+    sprinting: 97,
+    tackle: 90,
+    stamina_reflexes: 99,
+    avatar: "⚽",
+  },
+  {
+    id: "p60",
+    name: "Ferminator",
+    rating: 96,
+    position: "DF",
+    rarity: "mythical",
+    realName: "Ferdinand",
+    shooting: 86,
+    passing: 91,
+    sprinting: 95,
+    tackle: 103,
+    stamina_reflexes: 99,
+    avatar: "🛡️",
+  },
 ];
 
 const PLAYERS = RAW_PLAYERS.map((p) => {
@@ -982,6 +1010,32 @@ const GUIDES = [
 const NEWS = [
   {
     id: "n1",
+    tag: "Update",
+    date: "Sep 24, 2026",
+    icon: "⚽",
+    title: "v4.14.0 Preview: Nations Quest",
+    excerpt:
+      "The Nations Quest arrives with a new event shop, Friend Points, Chaos Arena and several quality-of-life improvements.",
+    content: `<p><strong>Version 4.14.0</strong> is rolling out next week and is expected to be available to everyone on Wednesday.</p>
+    <h3>Bug fixes &amp; small improvements</h3>
+    <ul>
+    <li><strong>Black/White screen:</strong> The issue should now be resolved for all formations. Missing or invisible players on the pitch should also be fixed. <a href="https://discord.com/channels/1298199867432374295/1541781232809934980" target="_blank" rel="noopener noreferrer">Please keep us updated if you find anything</a>.</li>
+    <li><strong>Free kicker adjustments:</strong> Free-kick selection has been changed based on community feedback.</li>
+    <li><strong>Using subs in a match:</strong> Opening the subs menu during gameplay now automatically selects everyone to sub in.</li>
+    <li><strong>Improved Arabic support:</strong> Further adjustments have been made based on community feedback.</li>
+    <li><strong>Small tweaks:</strong> Minor performance improvements and settings menu layout updates.</li>
+    </ul>
+    <h3>Nations Quest launches September 24</h3>
+    <p>Strengthen your squad with <strong>Spider Kid</strong>, <strong>Ferminator</strong> and <strong>Blonde Fury</strong>, a powerhouse midfielder.</p>
+    <ul>
+    <li><strong>Nations Quest Event Shop:</strong> Available September 28 with rare rewards, including the all-new Blueprint Pack.</li>
+    <li><strong>Friend Points:</strong> Receive Friend Points from friends to claim exclusive items in the new Friend Shop.</li>
+    <li><strong>Chaos Arena:</strong> A new high-energy stadium for when Chaos Rules returns.</li>
+    <li><strong>Preview character stats:</strong> View stats for every level when checking a player card from promos, rewards, collection sets and more.</li>
+    </ul>`,
+  },
+  {
+    id: "n2",
     tag: "Update",
     date: "Aug 20, 2026",
     icon: "⚽",
