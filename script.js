@@ -890,7 +890,7 @@ const RAW_PLAYERS = [
   {
     id: "p62",
     name: "Ferminator",
-    rating: 96,
+    rating: 95,
     position: "DF",
     rarity: "mythical",
     realName: "Ferdinand",
