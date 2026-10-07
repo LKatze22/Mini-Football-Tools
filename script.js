@@ -26,6 +26,7 @@ const RARITIES = [{ id: "mythical", label: "Mythical", color: "#bfebf5" }];
      rating   overall rating, 0-99
      position one of POSITIONS above
      rarity   one of: "mythical"
+    tier     assigned automatically from rating and tier exceptions below
      nation, club, league   free text
      pace / shooting / passing / dribbling / defense / physical   0-99
      avatar   an emoji shown as the player's icon
@@ -779,6 +780,7 @@ const RAW_PLAYERS = [
     id: "p54",
     name: "El Matador",
     rating: 91,
+    tier: 3,
     position: "ST",
     rarity: "mythical",
     realName: "Cavani",
@@ -793,6 +795,7 @@ const RAW_PLAYERS = [
     id: "p55",
     name: "Mister LA",
     rating: 91,
+    tier: 3,
     position: "ST",
     rarity: "mythical",
     realName: "Donovan",
@@ -903,9 +906,21 @@ const RAW_PLAYERS = [
   },
 ];
 
+function getPlayerTier(player) {
+  if (player.name === "Architect" || player.rating >= 96) return 5;
+  if (player.name === "Tigerheart") return 3;
+  if (player.name === "Fishion") return 4;
+  return player.rating >= 93 ? 4 : 3;
+}
+
 const PLAYERS = RAW_PLAYERS.map((p) => {
   const r = RARITIES.find((x) => x.id === p.rarity);
-  return { ...p, rarityLabel: r.label, rarityColor: r.color };
+  return {
+    ...p,
+    tier: getPlayerTier(p),
+    rarityLabel: r.label,
+    rarityColor: r.color,
+  };
 });
 function fetchPlayers() {
   return Promise.resolve(PLAYERS);
@@ -2005,10 +2020,7 @@ function renderPlayers() {
   function renderComboWeights() {
     const wrap = $("#combo-weights");
     const ids = [...comboState.keys()];
-    if (!ids.length) {
-      wrap.innerHTML = `<p class="combo-hint">Select at least one stat above to build a combined ranking.</p>`;
-      return;
-    }
+
     wrap.innerHTML = ids
       .map((id) => {
         const label = COMBINABLE_STATS.find((s) => s.id === id).label;
@@ -2094,7 +2106,7 @@ function renderPlayers() {
           <div class="rank-name"><a href="#/players/${p.id}">${p.name}</a></div>
           <div class="rank-meta">${meta}</div>
         </div>
-        <span class="rarity-tag hide-mobile" style="--r-color:${p.rarityColor}">${p.rarityLabel}</span>
+        <span class="rank-tier" data-tier="${p.tier}">Tier ${p.tier}</span>
         <div class="rank-value">${value}</div>
       </div>`;
       })
