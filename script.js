@@ -908,7 +908,7 @@ const RAW_PLAYERS = [
     id: "p63",
     name: "The Swan",
     rating: 96,
-    position: "AT",
+    position: "ST",
     rarity: "mythical",
     realName: "Van Basten",
     shooting: 104,
