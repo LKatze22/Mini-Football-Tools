@@ -1898,6 +1898,35 @@ function renderTools() {
       <div class="grid grid-2">
 
       <div class="tool-panel reveal">
+          <h3>💵 Stadium Profit List</h3>
+          <p class="desc">Set a custom price for each stadium to estimate net profit after the 5% fee.<br>
+          League Arena and League Pinnacle Arena have no default price; enter your current league price manually.<br>
+          You can set a custom price for every stadium.</p>
+          <div class="field-inline">
+            <div class="field-row"><label for="sp-stadium">Stadium</label><select id="sp-stadium">
+              <option value="1">Old Town</option>
+              <option value="2">Woodfield Stadium</option>
+              <option value="3">Egshell Arena</option>
+              <option value="4">Atlantic Park</option>
+              <option value="5">Indoor Fiesta</option>
+              <option value="6">Blossom Theatre</option>
+              <option value="7">Horus Heroes</option>
+              <option value="8">The Colosseum</option>
+              <option value="9">Spectacle Stadium</option>
+              <option value="10">Current Event Stadium</option>
+              <option value="11">League Arena</option>
+              <option value="12">League Pinnacle Arena</option>
+            </select></div>
+            <div class="field-row"><label for="sp-price">Stadium price</label><input type="number" id="sp-price" min="0" step="any"></div>
+            <div class="field-row"><label for="sp-matches">Matches</label><input type="number" id="sp-matches" value="10" min="1" step="1"></div>
+          </div>
+          <button type="button" class="btn btn-secondary" id="sp-reset-prices">Reset prices to code defaults</button>
+          <div class="result-box">
+            <div><div class="label">Net profit</div><div class="value" id="sp-result">$0</div></div>
+          </div>
+        </div>
+
+      <div class="tool-panel reveal">
           <h3>🎲 Probability Calculator</h3>
           <p class="desc">Chance of landing at least one legendary/mythical  across your selected number of packs.</p>
           <div class="field-inline">
@@ -1933,6 +1962,79 @@ function renderTools() {
     ids.forEach((id) => $("#" + id).addEventListener("input", fn));
     fn();
   }
+
+  const DEFAULT_STADIUM_PRICES = {
+    1: 25, // Old Town
+    2: 250, // Woodfield Stadium
+    3: 1000, // Egshell Arena
+    4: 2000, // Atlantic Park
+    5: 4000, // Indoor Fiesta
+    6: 8000, // Blossom Theatre
+    7: 16000, // Horus Heroes
+    8: 25000, // The Colosseum
+    9: 32000, // Spectacle Stadium
+    10: 50000, // Current Event Stadium
+    11: null, // League Arena
+    12: null, // League Pinnacle Arena
+  };
+  const savedStadiumPrices = store("mft-stadium-prices") || {};
+  const stadiumPrices = Object.fromEntries(
+    Object.entries(DEFAULT_STADIUM_PRICES).map(([stadiumId, defaultPrice]) => {
+      const savedValue = savedStadiumPrices[stadiumId];
+      const savedPrice =
+        savedValue === null || savedValue === undefined || savedValue === ""
+          ? NaN
+          : Number(savedValue);
+      return [
+        stadiumId,
+        Number.isFinite(savedPrice) && savedPrice >= 0
+          ? savedPrice
+          : defaultPrice,
+      ];
+    }),
+  );
+  const stadiumSelect = $("#sp-stadium");
+  const stadiumPriceInput = $("#sp-price");
+  const updateStadiumProfit = () => {
+    const stadiumId = stadiumSelect.value;
+    if (stadiumPriceInput.value.trim() === "") {
+      $("#sp-result").textContent = "Enter a valid stadium price";
+      return;
+    }
+    const stadiumCost = Number(stadiumPriceInput.value);
+    const matches = Number($("#sp-matches").value);
+    if (!Number.isFinite(stadiumCost) || stadiumCost < 0) {
+      $("#sp-result").textContent = "Enter a valid stadium price";
+      return;
+    }
+    if (!Number.isInteger(matches) || matches < 1) {
+      $("#sp-result").textContent = "Enter 1 or more matches";
+      return;
+    }
+
+    stadiumPrices[stadiumId] = stadiumCost;
+    store("mft-stadium-prices", stadiumPrices);
+    const payoutAfterFee = stadiumCost * 2 * 0.95;
+    const profit = (payoutAfterFee - stadiumCost) * matches;
+    $("#sp-result").textContent = `$${profit.toLocaleString("en-US", {
+      maximumFractionDigits: 2,
+    })}`;
+  };
+  stadiumPriceInput.value = stadiumPrices[stadiumSelect.value] ?? "";
+  stadiumSelect.addEventListener("change", () => {
+    stadiumPriceInput.value = stadiumPrices[stadiumSelect.value] ?? "";
+    updateStadiumProfit();
+  });
+  $("#sp-reset-prices").addEventListener("click", () => {
+    Object.assign(stadiumPrices, DEFAULT_STADIUM_PRICES);
+    store("mft-stadium-prices", stadiumPrices);
+    stadiumPriceInput.value = stadiumPrices[stadiumSelect.value] ?? "";
+    updateStadiumProfit();
+  });
+  ["sp-price", "sp-matches"].forEach((id) =>
+    $("#" + id).addEventListener("input", updateStadiumProfit),
+  );
+  updateStadiumProfit();
 
   function updateProb() {
     const n = +$("#pc-n").value || 0,
