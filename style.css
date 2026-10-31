@@ -1347,6 +1347,21 @@ p {
   align-items: center;
   gap: 10px;
 }
+.tool-panel h3 svg {
+  fill: currentColor;
+  flex: 0 0 auto;
+}
+.stadium-crown-result {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.stadium-crown-result svg {
+  flex: 0 0 auto;
+}
+.stadium-profit-result > div {
+  min-width: 0;
+}
 .tool-panel > p.desc {
   color: var(--text-2);
   font-size: 13.5px;

@@ -1896,39 +1896,65 @@ function renderTools() {
         <p>Five focused calculators covering the decisions that matter most.</p>
       </div>
       <div class="grid grid-2">
-
-      <div class="tool-panel reveal">
-          <h3>💵 Stadium Profit List</h3>
-          <p class="desc">Set a custom price for each stadium to estimate net profit after the 5% fee.<br>
-          League Arena and League Pinnacle Arena have no default price; enter your current league price manually.<br>
-          You can set a custom price for every stadium.</p>
+        <div class="tool-panel reveal">
+          <h3>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="24px" width="24px" fill="currentColor"><path d="M14,13q-1.25,0-2.13-0.88T11,10t0.88-2.13T14,7t2.13,0.88T17,10t-0.88,2.13T14,13ZM7,16q-0.82,0-1.41-0.59T5,14V6Q5,5.18 5.59,4.59T7,4H21q0.83,0 1.41,0.59Q23,5.18 23,6v8q0,0.82-0.59,1.41T21,16H7Zm2-2H19q0-0.83 0.59-1.41T21,12V8q-0.82,0-1.41-0.59T19,6H9Q9,6.82 8.41,7.41Q7.83,8 7,8v4q0.83,0 1.41,0.59Q9,13.18 9,14Zm11,6H3q-0.82,0-1.41-0.59T1,18V7H3V18H20v2ZM7,14V6v8Z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="24px" width="24px" fill="currentColor"><path d="M5,20V18H19v2H5Zm0-3.5L3.73,8.48q-0.05,0-0.11,0.01T3.5,8.5q-0.63,0-1.06-0.44T2,7T2.44,5.94T3.5,5.5T4.56,5.94T5,7Q5,7.18 4.96,7.32T4.88,7.6L8,9l3.13-4.28q-0.27-0.2-0.45-0.52T10.5,3.5q0-0.63 0.44-1.06T12,2t1.06,0.44T13.5,3.5q0,0.38-0.17,0.7T12.88,4.72L16,9l3.13-1.4q-0.05-0.13-0.09-0.27T19,7q0-0.63 0.44-1.06T20.5,5.5t1.06,0.44T22,7T21.56,8.06T20.5,8.5q-0.05,0-0.11-0.01q-0.06-0.01-0.11-0.01L19,16.5H5Zm1.7-2H17.3l0.65-4.18l-2.62,1.15L12,6.9L8.68,11.48L6.05,10.33L6.7,14.5Zm5.3,0Z"/></svg>
+            Stadium Profit List
+          </h3>
+          <p class="desc">
+            Set a custom price for each stadium to estimate net profit after the 5% fee.<br>
+            League Arena and League Pinnacle Arena have no default price; enter your current league price manually.<br>
+            You can set a custom price for every stadium.
+          </p>
           <div class="field-inline">
-            <div class="field-row"><label for="sp-stadium">Stadium</label><select id="sp-stadium">
-              <option value="1">Old Town</option>
-              <option value="2">Woodfield Stadium</option>
-              <option value="3">Egshell Arena</option>
-              <option value="4">Atlantic Park</option>
-              <option value="5">Indoor Fiesta</option>
-              <option value="6">Blossom Theatre</option>
-              <option value="7">Horus Heroes</option>
-              <option value="8">The Colosseum</option>
-              <option value="9">Spectacle Stadium</option>
-              <option value="10">Current Event Stadium</option>
-              <option value="11">League Arena</option>
-              <option value="12">League Pinnacle Arena</option>
-            </select></div>
-            <div class="field-row"><label for="sp-price">Stadium price</label><input type="number" id="sp-price" min="0" step="any"></div>
-            <div class="field-row"><label for="sp-matches">Matches</label><input type="number" id="sp-matches" value="10" min="1" step="1"></div>
+            <div class="field-row">
+              <label for="sp-stadium">Stadium</label>
+              <select id="sp-stadium">
+                <option value="1">Old Town</option>
+                <option value="2">Woodfield Stadium</option>
+                <option value="3">Egshell Arena</option>
+                <option value="4">Atlantic Park</option>
+                <option value="5">Indoor Fiesta</option>
+                <option value="6">Blossom Theatre</option>
+                <option value="7">Horus Heroes</option>
+                <option value="8">The Colosseum</option>
+                <option value="9">Spectacle Stadium</option>
+                <option value="10">Current Event Stadium</option>
+                <option value="11">League Arena</option>
+                <option value="12">League Pinnacle Arena</option>
+              </select>
+            </div>
+            <div class="field-row">
+              <label for="sp-price">Stadium price</label>
+              <input type="number" id="sp-price" min="0" step="any">
+            </div>
+            <div class="field-row">
+              <label for="sp-matches">Matches</label>
+              <input type="number" id="sp-matches" value="10" min="1" step="1">
+            </div>
           </div>
           <button type="button" class="btn btn-secondary" id="sp-reset-prices">Reset prices to code defaults</button>
-          <div class="result-box">
-            <div><div class="label">Net profit</div><div class="value" id="sp-result">$0</div></div>
+          <div class="result-box stadium-profit-result">
+            <div>
+              <div class="label">Net profit</div>
+              <div class="value" id="sp-result">$0</div>
+            </div>
+            <div>
+              <div class="label">Crown Profit</div>
+              <div class="stadium-crown-result">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true">
+                  <path d="M5,20V18H19v2H5Zm0-3.5L3.73,8.48q-.05,0-.11.01L3.5,8.5q-.63,0-1.06-.44T2,7t.44-1.06T3.5,5.5t1.06.44T5,7q0,.18-.04.32L4.88,7.6 8,9l3.13-4.28q-.27-.2-.45-.52T10.5,3.5q0-.63.44-1.06T12,2t1.06.44.44,1.06q0,.38-.17.7l-.45.52L16,9l3.13-1.4-.09-.27L19,7q0-.63.44-1.06T20.5,5.5t1.06.44T22,7t-.44,1.06T20.5,8.5l-.11-.01-.11-.01L19,16.5H5Zm1.7-2H17.3l.65-4.18-2.62,1.15L12,6.9l-3.32,4.58-2.63-1.15L6.7,14.5ZM12,14.5Z" />
+                </svg>
+                <span class="value" id="sp-crown-result">0</span>
+              </div>
+            </div>
           </div>
         </div>
 
-      <div class="tool-panel reveal">
-          <h3>🎲 Probability Calculator</h3>
-          <p class="desc">Chance of landing at least one legendary/mythical  across your selected number of packs.</p>
+        <div class="tool-panel reveal">
+          <h3>Probability Calculator</h3>
+          <p class="desc">Chance of landing at least one legendary/mythical across your selected number of packs.</p>
           <div class="field-inline">
             <div class="field-row"><label for="pc-n">Number of packs</label><input type="number" id="pc-n" value="20" min="1"></div>
             <div class="field-row"><label for="pc-p">Drop rate (%)</label><input type="number" id="pc-p" value="3" min="0" max="100" step="0.1"></div>
@@ -1940,7 +1966,10 @@ function renderTools() {
         
 
         <div class="tool-panel reveal">
-          <h3>⚡ XP Calculator</h3>
+          <h3>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="24px" width="24px" fill="currentColor"><path d="M12,23.3L8.65,20H4V15.35L0.7,12L4,8.65V4H8.65L12,0.7L15.35,4H20V8.65L23.3,12L20,15.35V20H15.35L12,23.3Zm3.54-7.76Q17,14.08 17,12q0-2.08-1.46-3.54T12,7Q9.93,7 8.46,8.46T7,12t1.46,3.54T12,17t3.54-1.46ZM12,12Zm0,8.5L14.5,18H18V14.5L20.5,12L18,9.5V6H14.5L12,3.5L9.5,6H6V9.5L3.5,12L6,14.5V18H9.5L12,20.5ZM12,12Z"/></svg>
+            XP Calculator
+          </h3>
           <p class="desc">Matches needed to reach your next account level.</p>
           <div class="field-inline">
             <div class="field-row"><label for="xc-current">Current XP</label><input type="number" id="xc-current" value="none" min="0"></div>
@@ -1995,20 +2024,25 @@ function renderTools() {
   );
   const stadiumSelect = $("#sp-stadium");
   const stadiumPriceInput = $("#sp-price");
+  const profitResult = $("#sp-result");
+  const crownResult = $("#sp-crown-result");
   const updateStadiumProfit = () => {
     const stadiumId = stadiumSelect.value;
     if (stadiumPriceInput.value.trim() === "") {
-      $("#sp-result").textContent = "Enter a valid stadium price";
+      profitResult.textContent = "Enter a valid stadium price";
+      crownResult.textContent = "—";
       return;
     }
     const stadiumCost = Number(stadiumPriceInput.value);
     const matches = Number($("#sp-matches").value);
     if (!Number.isFinite(stadiumCost) || stadiumCost < 0) {
-      $("#sp-result").textContent = "Enter a valid stadium price";
+      profitResult.textContent = "Enter a valid stadium price";
+      crownResult.textContent = "—";
       return;
     }
     if (!Number.isInteger(matches) || matches < 1) {
-      $("#sp-result").textContent = "Enter 1 or more matches";
+      profitResult.textContent = "Enter 1 or more matches";
+      crownResult.textContent = "—";
       return;
     }
 
@@ -2016,9 +2050,15 @@ function renderTools() {
     store("mft-stadium-prices", stadiumPrices);
     const payoutAfterFee = stadiumCost * 2 * 0.95;
     const profit = (payoutAfterFee - stadiumCost) * matches;
-    $("#sp-result").textContent = `$${profit.toLocaleString("en-US", {
+    const formattedProfit = profit.toLocaleString("en-US", {
       maximumFractionDigits: 2,
-    })}`;
+    });
+    const formattedCrownValue = (stadiumCost * 2 * matches).toLocaleString(
+      "en-US",
+      { maximumFractionDigits: 2 },
+    );
+    profitResult.textContent = `$${formattedProfit}`;
+    crownResult.textContent = formattedCrownValue;
   };
   stadiumPriceInput.value = stadiumPrices[stadiumSelect.value] ?? "";
   stadiumSelect.addEventListener("change", () => {
