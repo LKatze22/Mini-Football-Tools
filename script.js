@@ -1891,11 +1891,75 @@ function renderTools() {
   <section class="section-tight">
     <div class="wrap">
       <div class="section-head reveal">
-        <p class="eyebrow">Calculators</p>
-        <h2>Plan every resource before you spend it</h2>
-        <p>Five focused calculators covering the decisions that matter most.</p>
+        <p class="eyebrow">Tools &amp; Calculators</p>
+        <h2>Plan resources and customize your name</h2>
+        <p>Four practical tools to plan resources and customize your in-game name.</p>
       </div>
       <div class="grid grid-2">
+
+      <div class="tool-panel reveal cng-tool" id="color-name-tool">
+          <h3> Club Color Name Generator</h3>
+          <p class="desc">Create a colored player name and copy the game-ready code.</p>
+          <div class="cng-guide-note">
+            <strong>Game limit: 30 characters total.</strong> Each full-length color code uses 9 characters,
+            leaving 21, 12, or 3 characters for your name with 1, 2, or 3 colors.
+            Spaces count as characters. To add a space between colors, put it at the end of one part or the
+            beginning of the next.
+          </div>
+          <div class="cng-tabs" role="group" aria-label="Number of name colors">
+            <button type="button" class="cng-tab active" data-mode="1" aria-pressed="true">1 color</button>
+            <button type="button" class="cng-tab" data-mode="2" aria-pressed="false">2 colors</button>
+            <button type="button" class="cng-tab" data-mode="3" aria-pressed="false">3 colors</button>
+          </div>
+          <div class="cng-counters" aria-live="polite">
+            <div><span>Color code</span><strong id="cng-color-count">9/30 characters</strong></div>
+            <div><span>Name length</span><strong id="cng-name-count">0/21 characters</strong></div>
+          </div>
+          <p class="cng-warning" id="cng-warning" role="status" hidden>
+            The name is over the limit for this mode. Remove some characters before copying.
+          </p>
+          <div class="cng-layout">
+            <div class="cng-editor">
+              <div id="cng-single-color">
+                <label class="cng-label" for="cng-saturation">Choose a color</label>
+                <div class="cng-sv-picker" id="cng-saturation" role="slider" tabindex="0"
+                  aria-label="Color saturation and brightness" aria-valuemin="0" aria-valuemax="100"
+                  aria-valuenow="100" aria-valuetext="Saturation 100%, brightness 100%">
+                  <div class="cng-sv-overlay"></div>
+                  <span class="cng-picker-thumb" id="cng-picker-thumb"></span>
+                </div>
+                <label class="cng-label cng-hue-label" for="cng-hue">Hue</label>
+                <input class="cng-hue" type="range" id="cng-hue" min="0" max="359" value="47" aria-label="Hue">
+                <label class="cng-label" for="cng-name-single">Name</label>
+                <input class="cng-name-input" type="text" id="cng-name-single"
+                  autocomplete="off" spellcheck="false" placeholder="e.g. Demo 123">
+              </div>
+              <div id="cng-multi-colors" hidden></div>
+            </div>
+            <div class="cng-output-panel">
+              <span class="cng-label">Live preview</span>
+              <div class="cng-preview" id="cng-preview" aria-live="polite">Enter a name to preview it.</div>
+              <label class="cng-label cng-code-label" for="cng-code">Generated code</label>
+              <div class="cng-code-row">
+                <input class="cng-code" type="text" id="cng-code" readonly aria-label="Generated name code">
+                <button class="btn btn-primary" type="button" id="cng-copy" disabled>Copy code</button>
+              </div>
+            </div>
+          </div>
+          <div class="cng-modal" id="cng-modal" role="dialog" aria-modal="true"
+            aria-labelledby="cng-modal-title" tabindex="-1" hidden>
+            <div class="cng-modal-content">
+              <div class="cng-modal-header">
+                <h4 id="cng-modal-title">Select a preset color</h4>
+                <button class="cng-modal-close" type="button" id="cng-modal-close" aria-label="Close color picker">&times;</button>
+              </div>
+              <div class="cng-preset-grid" id="cng-preset-grid"></div>
+            </div>
+          </div>
+          <div class="cng-toast" id="cng-toast" role="status" aria-live="polite"></div>
+        </div>
+
+        
         <div class="tool-panel reveal">
           <h3>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="24px" width="24px" fill="currentColor"><path d="M14,13q-1.25,0-2.13-0.88T11,10t0.88-2.13T14,7t2.13,0.88T17,10t-0.88,2.13T14,13ZM7,16q-0.82,0-1.41-0.59T5,14V6Q5,5.18 5.59,4.59T7,4H21q0.83,0 1.41,0.59Q23,5.18 23,6v8q0,0.82-0.59,1.41T21,16H7Zm2-2H19q0-0.83 0.59-1.41T21,12V8q-0.82,0-1.41-0.59T19,6H9Q9,6.82 8.41,7.41Q7.83,8 7,8v4q0.83,0 1.41,0.59Q9,13.18 9,14Zm11,6H3q-0.82,0-1.41-0.59T1,18V7H3V18H20v2ZM7,14V6v8Z"/></svg>
@@ -1981,11 +2045,11 @@ function renderTools() {
           </div>
         </div>
 
-        
-
       </div>
     </div>
   </section>`;
+
+  initColorNameGenerator();
 
   function bindLive(ids, fn) {
     ids.forEach((id) => $("#" + id).addEventListener("input", fn));
@@ -2092,6 +2156,403 @@ function renderTools() {
     const remaining = Math.max(0, needed - cur);
     $("#xc-result").textContent = Math.ceil(remaining / per);
   });
+}
+
+function initColorNameGenerator() {
+  const root = $("#color-name-tool");
+  if (!root) return;
+
+  const LIMITS = {
+    1: { colorLength: 9, nameMax: 21 },
+    2: { colorLength: 18, nameMax: 12 },
+    3: { colorLength: 27, nameMax: 3 },
+  };
+  const PRESET_COLORS = [
+    { name: "Bright Red", hex: "#FF0000" },
+    { name: "Crimson", hex: "#CC0000" },
+    { name: "Dark Red", hex: "#990000" },
+    { name: "Bright Orange", hex: "#FF6600" },
+    { name: "Yellow Orange", hex: "#FF9900" },
+    { name: "Earth Orange", hex: "#CC6600" },
+    { name: "Yellow", hex: "#FFFF00" },
+    { name: "Dark Yellow", hex: "#CCCC00" },
+    { name: "Olive", hex: "#999900" },
+    { name: "Light Green", hex: "#CCFF00" },
+    { name: "Green", hex: "#00FF00" },
+    { name: "Dark Green", hex: "#009900" },
+    { name: "Cyan Green", hex: "#00FF99" },
+    { name: "Cyan", hex: "#00FFFF" },
+    { name: "Dark Cyan", hex: "#009999" },
+    { name: "Light Blue", hex: "#3399FF" },
+    { name: "Blue", hex: "#0000FF" },
+    { name: "Dark Blue", hex: "#000099" },
+    { name: "Light Purple", hex: "#9900FF" },
+    { name: "Dark Purple", hex: "#660099" },
+    { name: "Fuchsia", hex: "#FF00FF" },
+    { name: "Pink", hex: "#FF66CC" },
+    { name: "Light Pink", hex: "#FF99CC" },
+    { name: "White", hex: "#FFFFFF" },
+    { name: "Light Gray", hex: "#CCCCCC" },
+    { name: "Gray", hex: "#999999" },
+    { name: "Dark Gray", hex: "#666666" },
+    { name: "Black", hex: "#000000" },
+  ];
+  const state = {
+    mode: 1,
+    hue: 47,
+    saturation: 100,
+    brightness: 100,
+    singleName: "",
+    colors: [
+      { hex: "#FF0000", name: "" },
+      { hex: "#00FF00", name: "" },
+      { hex: "#0000FF", name: "" },
+    ],
+    activeColorIndex: 0,
+    activeColorButton: null,
+  };
+  const $tool = (selector) => root.querySelector(selector);
+  const tabs = root.querySelectorAll(".cng-tab");
+  const singleInput = $tool("#cng-name-single");
+  const singleMode = $tool("#cng-single-color");
+  const multiMode = $tool("#cng-multi-colors");
+  const saturationPicker = $tool("#cng-saturation");
+  const pickerThumb = $tool("#cng-picker-thumb");
+  const hueInput = $tool("#cng-hue");
+  const colorCount = $tool("#cng-color-count");
+  const nameCount = $tool("#cng-name-count");
+  const warning = $tool("#cng-warning");
+  const preview = $tool("#cng-preview");
+  const codeInput = $tool("#cng-code");
+  const copyButton = $tool("#cng-copy");
+  const modal = $tool("#cng-modal");
+  const presetGrid = $tool("#cng-preset-grid");
+  const toast = $tool("#cng-toast");
+  let toastTimer;
+  let draggingPicker = false;
+
+  function countCharacters(text) {
+    return Array.from(text).length;
+  }
+
+  function getNameLength() {
+    if (state.mode === 1) return countCharacters(state.singleName);
+    return state.colors
+      .slice(0, state.mode)
+      .reduce((total, color) => total + countCharacters(color.name), 0);
+  }
+
+  function hsvToRgb(h, s, v) {
+    const hue = h / 60;
+    const saturation = s / 100;
+    const value = v / 100;
+    const chroma = value * saturation;
+    const x = chroma * (1 - Math.abs((hue % 2) - 1));
+    const match = value - chroma;
+    let rgb;
+
+    if (hue < 1) rgb = [chroma, x, 0];
+    else if (hue < 2) rgb = [x, chroma, 0];
+    else if (hue < 3) rgb = [0, chroma, x];
+    else if (hue < 4) rgb = [0, x, chroma];
+    else if (hue < 5) rgb = [x, 0, chroma];
+    else rgb = [chroma, 0, x];
+
+    return rgb
+      .map((channel) => Math.round((channel + match) * 255))
+      .map((channel) => channel.toString(16).padStart(2, "0"))
+      .join("")
+      .toUpperCase();
+  }
+
+  function updatePicker() {
+    const hueColor = `#${hsvToRgb(state.hue, 100, 100)}`;
+    const selectedColor = `#${hsvToRgb(state.hue, state.saturation, state.brightness)}`;
+    saturationPicker.style.backgroundColor = hueColor;
+    pickerThumb.style.left = `${state.saturation}%`;
+    pickerThumb.style.top = `${100 - state.brightness}%`;
+    pickerThumb.style.backgroundColor = selectedColor;
+    saturationPicker.setAttribute(
+      "aria-valuetext",
+      `Saturation ${state.saturation}%, brightness ${state.brightness}%`,
+    );
+    saturationPicker.setAttribute("aria-valuenow", String(state.saturation));
+    updateUI();
+  }
+
+  function updateUI() {
+    const limit = LIMITS[state.mode];
+    const currentLength = getNameLength();
+    const exceeded = currentLength > limit.nameMax;
+    const hasName = currentLength > 0;
+    colorCount.textContent = `${limit.colorLength}/30 characters`;
+    nameCount.textContent = `${currentLength}/${limit.nameMax} characters`;
+    nameCount.classList.toggle("is-over-limit", exceeded);
+    warning.hidden = !exceeded;
+    copyButton.disabled = exceeded || !hasName;
+
+    root.querySelectorAll(".cng-name-input").forEach((input) => {
+      input.classList.toggle("is-over-limit", exceeded);
+    });
+
+    preview.replaceChildren();
+    let generatedCode = "";
+    if (state.mode === 1) {
+      const color = `#${hsvToRgb(state.hue, state.saturation, state.brightness)}`;
+      const name = state.singleName;
+      generatedCode = `<${color}>${name}`;
+      const nameSpan = document.createElement("span");
+      nameSpan.style.color = color;
+      nameSpan.textContent = name || "Enter a name to preview it.";
+      preview.appendChild(nameSpan);
+    } else {
+      state.colors.slice(0, state.mode).forEach(({ hex, name }) => {
+        const nameSpan = document.createElement("span");
+        nameSpan.style.color = hex;
+        nameSpan.textContent = name;
+        preview.appendChild(nameSpan);
+        generatedCode += `<${hex}>${name}`;
+      });
+      if (!hasName) preview.textContent = "Enter a name to preview it.";
+    }
+
+    codeInput.value = generatedCode;
+  }
+
+  function showToast(message, isError = false) {
+    toast.textContent = message;
+    toast.classList.toggle("is-error", isError);
+    toast.classList.add("is-visible");
+    window.clearTimeout(toastTimer);
+    toastTimer = window.setTimeout(() => {
+      toast.classList.remove("is-visible");
+    }, 2400);
+  }
+
+  function attachNameInput(input, colorIndex) {
+    input.addEventListener("beforeinput", (event) => {
+      if (!event.inputType || !event.inputType.startsWith("insert")) return;
+      let insertedText = event.data;
+      if (insertedText == null && event.dataTransfer) {
+        insertedText = event.dataTransfer.getData("text");
+      }
+      if (insertedText == null) return;
+
+      const selectedText = input.value.slice(
+        input.selectionStart ?? input.value.length,
+        input.selectionEnd ?? input.value.length,
+      );
+      if (
+        getNameLength() -
+          countCharacters(selectedText) +
+          countCharacters(insertedText) >
+        LIMITS[state.mode].nameMax
+      ) {
+        event.preventDefault();
+        showToast("Character limit reached.", true);
+      }
+    });
+    input.addEventListener("input", () => {
+      if (state.mode === 1) state.singleName = input.value;
+      else state.colors[colorIndex].name = input.value;
+      updateUI();
+    });
+  }
+
+  function closeModal() {
+    modal.hidden = true;
+    if (state.activeColorButton?.isConnected) state.activeColorButton.focus();
+  }
+
+  function openModal(index, button) {
+    state.activeColorIndex = index;
+    state.activeColorButton = button;
+    modal.hidden = false;
+    modal.focus();
+  }
+
+  function renderColorInputs() {
+    multiMode.replaceChildren();
+    for (let index = 0; index < state.mode; index += 1) {
+      const row = document.createElement("div");
+      row.className = "cng-color-row";
+
+      const colorControls = document.createElement("div");
+      colorControls.className = "cng-color-controls";
+      const colorLabel = document.createElement("span");
+      colorLabel.className = "cng-label";
+      colorLabel.textContent = `Color ${index + 1}`;
+      const colorButton = document.createElement("button");
+      colorButton.type = "button";
+      colorButton.className = "cng-color-button";
+      colorButton.dataset.colorIndex = String(index);
+      colorButton.style.backgroundColor = state.colors[index].hex;
+      colorButton.setAttribute("aria-label", `Choose color ${index + 1}`);
+      colorButton.addEventListener("click", () =>
+        openModal(index, colorButton),
+      );
+      colorControls.append(colorLabel, colorButton);
+
+      const nameLabel = document.createElement("label");
+      nameLabel.className = "cng-label";
+      nameLabel.htmlFor = `cng-name-${index}`;
+      nameLabel.textContent = `Name part ${index + 1}`;
+      const nameInput = document.createElement("input");
+      nameInput.type = "text";
+      nameInput.id = `cng-name-${index}`;
+      nameInput.className = "cng-name-input";
+      nameInput.autocomplete = "off";
+      nameInput.spellcheck = false;
+      nameInput.placeholder = `Part ${index + 1}`;
+      nameInput.value = state.colors[index].name;
+      attachNameInput(nameInput, index);
+
+      const nameControls = document.createElement("div");
+      nameControls.className = "cng-name-controls";
+      nameControls.append(nameLabel, nameInput);
+      row.append(colorControls, nameControls);
+      multiMode.appendChild(row);
+    }
+  }
+
+  PRESET_COLORS.forEach(({ name, hex }) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "cng-preset";
+    button.setAttribute("aria-label", `${name}, ${hex}`);
+    const swatch = document.createElement("span");
+    swatch.className = "cng-preset-swatch";
+    swatch.style.backgroundColor = hex;
+    const label = document.createElement("span");
+    label.className = "cng-preset-name";
+    label.textContent = name;
+    const value = document.createElement("span");
+    value.className = "cng-preset-hex";
+    value.textContent = hex;
+    button.append(swatch, label, value);
+    button.addEventListener("click", () => {
+      state.colors[state.activeColorIndex].hex = hex;
+      closeModal();
+      renderColorInputs();
+      updateUI();
+      $tool(`[data-color-index="${state.activeColorIndex}"]`)?.focus();
+    });
+    presetGrid.appendChild(button);
+  });
+
+  tabs.forEach((tab) => {
+    tab.addEventListener("click", () => {
+      state.mode = Number(tab.dataset.mode);
+      tabs.forEach((button) => {
+        const isActive = button === tab;
+        button.classList.toggle("active", isActive);
+        button.setAttribute("aria-pressed", String(isActive));
+      });
+      singleMode.hidden = state.mode !== 1;
+      multiMode.hidden = state.mode === 1;
+      if (state.mode !== 1) renderColorInputs();
+      updateUI();
+    });
+  });
+
+  singleInput.addEventListener("input", () => {
+    state.singleName = singleInput.value;
+    updateUI();
+  });
+  singleInput.addEventListener("beforeinput", (event) => {
+    if (
+      !event.inputType ||
+      !event.inputType.startsWith("insert") ||
+      event.data == null
+    )
+      return;
+    const selectedText = singleInput.value.slice(
+      singleInput.selectionStart ?? singleInput.value.length,
+      singleInput.selectionEnd ?? singleInput.value.length,
+    );
+    if (
+      getNameLength() -
+        countCharacters(selectedText) +
+        countCharacters(event.data) >
+      LIMITS[state.mode].nameMax
+    ) {
+      event.preventDefault();
+      showToast("Character limit reached.", true);
+    }
+  });
+  hueInput.addEventListener("input", () => {
+    state.hue = Number(hueInput.value);
+    updatePicker();
+  });
+  saturationPicker.addEventListener("pointerdown", (event) => {
+    draggingPicker = true;
+    saturationPicker.setPointerCapture(event.pointerId);
+    updatePickerFromPointer(event);
+  });
+  saturationPicker.addEventListener("pointermove", (event) => {
+    if (draggingPicker) updatePickerFromPointer(event);
+  });
+  ["pointerup", "pointercancel"].forEach((eventName) => {
+    saturationPicker.addEventListener(eventName, () => {
+      draggingPicker = false;
+    });
+  });
+  saturationPicker.addEventListener("keydown", (event) => {
+    const step = event.shiftKey ? 10 : 2;
+    if (event.key === "ArrowRight")
+      state.saturation = Math.min(100, state.saturation + step);
+    else if (event.key === "ArrowLeft")
+      state.saturation = Math.max(0, state.saturation - step);
+    else if (event.key === "ArrowUp")
+      state.brightness = Math.min(100, state.brightness + step);
+    else if (event.key === "ArrowDown")
+      state.brightness = Math.max(0, state.brightness - step);
+    else return;
+    event.preventDefault();
+    updatePicker();
+  });
+  function updatePickerFromPointer(event) {
+    const bounds = saturationPicker.getBoundingClientRect();
+    if (!bounds.width || !bounds.height) return;
+    const x = Math.max(0, Math.min(event.clientX - bounds.left, bounds.width));
+    const y = Math.max(0, Math.min(event.clientY - bounds.top, bounds.height));
+    state.saturation = Math.round((x / bounds.width) * 100);
+    state.brightness = Math.round(100 - (y / bounds.height) * 100);
+    updatePicker();
+  }
+
+  $tool("#cng-modal-close").addEventListener("click", closeModal);
+  modal.addEventListener("click", (event) => {
+    if (event.target === modal) closeModal();
+  });
+  modal.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") closeModal();
+  });
+
+  copyButton.addEventListener("click", async () => {
+    if (!codeInput.value || copyButton.disabled) return;
+    try {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(codeInput.value);
+      } else {
+        codeInput.select();
+        if (!document.execCommand("copy")) {
+          throw new Error("Clipboard copy command was rejected.");
+        }
+      }
+      showToast("Code copied.");
+    } catch (error) {
+      console.warn("Could not copy the generated name code.", error);
+      codeInput.select();
+      showToast(
+        "Copy failed. The code is selected so you can copy it manually.",
+        true,
+      );
+    }
+  });
+
+  renderColorInputs();
+  updatePicker();
 }
 
 /* -------------------------------------------------------------------------
