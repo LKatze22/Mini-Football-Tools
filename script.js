@@ -932,6 +932,20 @@ const RAW_PLAYERS = [
     stamina_reflexes: 96,
     avatar: "⚽",
   },
+  {
+    id: "p65",
+    name: "Icy Veins",
+    rating: 97,
+    position: "GK",
+    rarity: "mythical",
+    realName: "Icy Veins",
+    shooting: 93,
+    passing: 96,
+    sprinting: 97,
+    tackle: 95,
+    stamina_reflexes: 102,
+    avatar: "🧤",
+  },
 ];
 
 function getPlayerTier(player) {
