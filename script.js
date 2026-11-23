@@ -948,6 +948,30 @@ const RAW_PLAYERS = [
   },
 ];
 
+// Generates all 6 upgrade levels from Level 6 stats.
+function generateUpgradeLevels(player) {
+  const statKeys = [
+    "rating",
+    "shooting",
+    "passing",
+    "sprinting",
+    "tackle",
+    "stamina_reflexes",
+  ];
+  const upgrades = {};
+
+  for (let level = 1; level <= 6; level++) {
+    const difference = (6 - level) * 7;
+    const stats = {};
+    statKeys.forEach((key) => {
+      stats[key] = player[key] - difference;
+    });
+    upgrades[level] = stats;
+  }
+
+  return upgrades;
+}
+
 function getPlayerTier(player) {
   if (player.name === "Architect" || player.rating >= 96) return 5;
   if (player.name === "Tigerheart") return 3;
@@ -959,6 +983,7 @@ const PLAYERS = RAW_PLAYERS.map((p) => {
   const r = RARITIES.find((x) => x.id === p.rarity);
   return {
     ...p,
+    upgrades: generateUpgradeLevels(p),
     tier: getPlayerTier(p),
     rarityLabel: r.label,
     rarityColor: r.color,
@@ -1661,7 +1686,7 @@ function renderPlayerDetail(path, query) {
         <div>
           <span class="rarity-tag" style="--r-color:${p.rarityColor}">${p.rarityLabel}</span>
           <h1>${p.name}</h1>
-          <p class="pos-tag">${p.position} · Overall ${p.rating}</p>
+          <p class="pos-tag">${p.position} · Overall <span id="pd-overall">${p.rating}</span></p>
           <div class="tag-row">
             <span class="info-tag">Real Name <b>${p.realName}</b></span>
           </div>
@@ -1679,17 +1704,19 @@ function renderPlayerDetail(path, query) {
       <div class="detail-grid">
         <div>
           <p class="panel-title">${vs ? "Comparison" : "Stats"}</p>
-          <div class="stat-panel reveal">
-            ${
-              vs
-                ? compareBlock(p, vs)
-                : `${statBar("Shooting", p.shooting)}
-            ${statBar("Passing", p.passing)}
-            ${statBar("Sprinting", p.sprinting)}
-            ${statBar("Tackle", p.tackle)}
-            ${statBar("Stamina/Reflexes", p.stamina_reflexes)}`
-            }
-          </div>
+          ${
+            vs
+              ? `<div class="stat-panel reveal">${compareBlock(p, vs)}</div>`
+              : `<div class="level-tabs reveal" id="pd-level-tabs" aria-label="Player level">
+                  ${[1, 2, 3, 4, 5, 6]
+                    .map(
+                      (level) =>
+                        `<button type="button" class="level-tab ${level === 6 ? "active" : ""}" data-level="${level}" aria-pressed="${level === 6}">Level ${level}</button>`,
+                    )
+                    .join("")}
+                </div>
+                <div class="stat-panel reveal" id="pd-level-stats"></div>`
+          }
         </div>
 
       <div style="margin-top:44px;">
@@ -1722,6 +1749,32 @@ function renderPlayerDetail(path, query) {
       location.hash = `#/players/${p.id}`;
     });
   } else {
+    const renderLevelStats = (level) => {
+      const stats = p.upgrades[level];
+      $("#pd-overall").textContent = stats.rating;
+      $("#pd-level-stats").innerHTML = `
+        ${statBar("Shooting", stats.shooting)}
+        ${statBar("Passing", stats.passing)}
+        ${statBar("Sprinting", stats.sprinting)}
+        ${statBar("Tackle", stats.tackle)}
+        ${statBar("Stamina/Reflexes", stats.stamina_reflexes)}
+      `;
+    };
+
+    $$(".level-tab", $("#pd-level-tabs")).forEach((tab) => {
+      tab.addEventListener("click", () => {
+        $$(".level-tab", $("#pd-level-tabs")).forEach((item) => {
+          item.classList.remove("active");
+          item.setAttribute("aria-pressed", "false");
+        });
+        tab.classList.add("active");
+        tab.setAttribute("aria-pressed", "true");
+        renderLevelStats(Number(tab.dataset.level));
+      });
+    });
+
+    renderLevelStats(6);
+
     $("#pd-compare").addEventListener("click", () => {
       toggleCompare(p.id);
       location.hash = "#/players";

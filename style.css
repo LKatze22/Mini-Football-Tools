@@ -1197,6 +1197,37 @@ p {
   border-radius: var(--r-lg);
   padding: 26px;
 }
+.level-tabs {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.level-tab {
+  min-height: 38px;
+  border: 1px solid var(--border-strong);
+  border-radius: 9px;
+  background: var(--bg-surface);
+  color: var(--text-2);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+.level-tab:hover {
+  border-color: var(--blue);
+  color: var(--text-1);
+}
+.level-tab.active {
+  border-color: var(--blue);
+  background: var(--blue);
+  color: #fff;
+}
+@media (max-width: 480px) {
+  .level-tabs {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
 .stat-bar-row {
   margin-bottom: 16px;
 }
